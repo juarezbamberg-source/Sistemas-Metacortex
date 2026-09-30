@@ -1,5 +1,7 @@
 # Desafio 03 — Parque da Metacortex
 
+![Status](https://img.shields.io/badge/status-conclu%C3%ADdo-4c1) ![Tickets](https://img.shields.io/badge/tickets-4%2F4-4c1) ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white) ![Node](https://img.shields.io/badge/Node.js-20-339933?logo=node.js&logoColor=white) ![Kubernetes](https://img.shields.io/badge/Kubernetes-1.35-326CE5?logo=kubernetes&logoColor=white) ![License](https://img.shields.io/badge/license-MIT-blue)
+
 Entregas do Desafio 03 da pós em Engenharia Cloud com IA: skills de manifests e triagem, ferramenta de inventário de VM e dashboard do cluster.
 
 ## Tickets
