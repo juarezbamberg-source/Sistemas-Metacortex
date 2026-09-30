@@ -7,9 +7,9 @@ Entregas do Desafio 03 da pós em Engenharia Cloud com IA: skills de manifests e
 | Ticket | Tema | Pasta | Status |
 |---|---|---|---|
 | 01 | Skill do padrão de manifests (escrita + conferência) | [ticket-01-padrao-de-manifests/](ticket-01-padrao-de-manifests/) | ✅ entregue |
-| 02 | Skill de triagem de cluster + roteamento + medição | [ticket-02-triagem-no-cluster/](ticket-02-triagem-no-cluster/) | 🔜 |
-| 03 | Inventário e drift de VM por SSH (spec + código) | [ticket-03-inventario-de-vm/](ticket-03-inventario-de-vm/) | 🔜 |
-| 04 | Dashboard de leitura do cluster (spec + código) | [ticket-04-dashboard-do-cluster/](ticket-04-dashboard-do-cluster/) | 🔜 |
+| 02 | Skill de triagem de cluster + roteamento + medição | [ticket-02-triagem-no-cluster/](ticket-02-triagem-no-cluster/) | ✅ entregue |
+| 03 | Inventário e drift de VM por SSH (spec + código) | [ticket-03-inventario-de-vm/](ticket-03-inventario-de-vm/) | ✅ entregue |
+| 04 | Dashboard de leitura do cluster (spec + código) | [ticket-04-dashboard-do-cluster/](ticket-04-dashboard-do-cluster/) | ✅ entregue |
 
 ## Agente e modelos usados
 
