@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="pt-br">
+<head>
+<meta charset="utf-8">
+<title>painel-parque — leitura do cluster</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 0; background: #f4f6f8; color: #1b2430; }
+  header { background: #10243e; color: #fff; padding: 12px 20px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  header h1 { font-size: 18px; margin: 0; }
+  select, input { padding: 6px 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
+  main { padding: 16px 20px; }
+  .banner-erro { background: #fdecea; border: 1px solid #f5c6c0; color: #8a1f11; padding: 10px 14px; border-radius: 8px; margin-bottom: 14px; }
+  .atualizado { font-size: 12px; color: #fff; opacity: .8; }
+  section { background: #fff; border-radius: 10px; padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  h2 { font-size: 15px; margin: 0 0 10px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid #eee; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+  .ok { background: #e6f6ec; color: #176b3a; }
+  .falha { background: #fdecea; color: #a11c0c; }
+  .neutro { background: #eef1f4; color: #44515f; }
+  .muted { color: #66707b; font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>painel-parque</h1>
+  <select id="ns"></select>
+  <input id="busca" type="search" placeholder="buscar por nome…">
+  <button id="agora">atualizar</button>
+  <span class="atualizado" id="quando"></span>
+</header>
+<main id="conteudo"><p class="muted">carregando…</p></main>
+
+<script>
+const $ = (s) => document.querySelector(s);
+let nsAtual = 'default';
+let timer = null;
+
+function esc(s) { return String(s ?? '').replace(/[&<>"]/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function banner(erro) {
+  return `<div class="banner-erro"><b>${esc(erro.codigo)}:</b> ${esc(erro.mensagem)}</div>`;
+}
+
+async function carregar() {
+  try {
+    const r = await fetch(`/api/overview?namespace=${encodeURIComponent(nsAtual)}`);
+    const d = await r.json();
+    render(d);
+    $('#quando').textContent = 'atualizado ' + new Date().toLocaleTimeString();
+  } catch (e) {
+    $('#conteudo').innerHTML = banner({ codigo: 'cluster-indisponivel', mensagem: 'O painel não alcançou o próprio backend — verifique se o processo está de pé.' });
+  }
+}
+
+function render(d) {
+  const busca = $('#busca').value.trim().toLowerCase();
+  const f = (nome) => !busca || nome.toLowerCase().includes(busca);
+  let html = '';
+
+  if (d.erro) html += banner(d.erro);
+  if (d.erros?.length) d.erros.forEach((e) => { html += banner(e); });
+
+  html += `<section><h2>Pods (${d.pods?.length ?? 0})</h2><table><tr><th>Nome</th><th>Estado</th><th>Reinícios</th><th>Motivo</th></tr>` +
+    (d.pods ?? []).filter((p) => f(p.nome)).map((p) => {
+      const cls = p.estado === 'Running' ? 'ok' : (p.estado === 'Running (não-ready)' ? 'neutro' : 'falha');
+      return `<tr><td>${esc(p.nome)}</td><td><span class="badge ${cls}">${esc(p.estado)}</span></td><td>${p.reinicios}</td><td class="muted">${esc(p.motivo ?? '')}</td></tr>`;
+    }).join('') + '</table></section>';
+
+  html += `<section><h2>Deployments (${d.deployments?.length ?? 0})</h2><table><tr><th>Nome</th><th>Réplicas prontas/desejadas</th></tr>` +
+    (d.deployments ?? []).filter((x) => f(x.nome)).map((x) => {
+      const ok = x.prontas >= x.desejadas;
+      return `<tr><td>${esc(x.nome)}</td><td><span class="badge ${ok ? 'ok' : 'falha'}">${x.prontas}/${x.desejadas}</span></td></tr>`;
+    }).join('') + '</table></section>';
+
+  html += `<section><h2>Services (${d.services?.length ?? 0})</h2><table><tr><th>Nome</th><th>Portas</th><th>Endpoint</th></tr>` +
+    (d.services ?? []).filter((x) => f(x.nome)).map((x) =>
+      `<tr><td>${esc(x.nome)}</td><td>${x.portas.join(', ')}</td><td><span class="badge ${x.temEndpoint ? 'ok' : 'falha'}">${x.temEndpoint ? 'tem endpoints' : 'SEM endpoints'}</span></td></tr>`
+    ).join('') + '</table></section>';
+
+  html += `<section><h2>Eventos recentes (${d.eventos?.length ?? 0})</h2><table><tr><th>Tipo</th><th>Motivo</th><th>Objeto</th><th>Mensagem</th><th>×</th></tr>` +
+    (d.eventos ?? []).filter((e) => f(e.objeto) || f(e.motivo)).slice(0, 30).map((e) =>
+      `<tr><td><span class="badge ${e.tipo === 'Warning' ? 'falha' : 'neutro'}">${esc(e.tipo)}</span></td><td>${esc(e.motivo)}</td><td class="muted">${esc(e.objeto)}</td><td class="muted">${esc(e.mensagem)}</td><td>${e.contagem}</td></tr>`
+    ).join('') + '</table></section>';
+
+  $('#conteudo').innerHTML = html;
+}
+
+async function carregarNamespaces() {
+  try {
+    const r = await fetch('/api/namespaces');
+    const d = await r.json();
+    if (d.erro) { $('#conteudo').innerHTML = banner(d.erro); return; }
+    $('#ns').innerHTML = d.namespaces.map((n) => `<option ${n === nsAtual ? 'selected' : ''}>${esc(n)}</option>`).join('');
+  } catch (e) {
+    $('#conteudo').innerHTML = banner({ codigo: 'cluster-indisponivel', mensagem: 'Não foi possível listar namespaces — verifique o túnel/VPN e o contexto do kubeconfig.' });
+  }
+}
+
+$('#ns').addEventListener('change', (e) => { nsAtual = e.target.value; carregar(); });
+$('#busca').addEventListener('input', () => $('#conteudo').dataset.pendente = '1');
+setInterval(() => { if ($('#busca').value) renderÚltima?.(); }, 1000); // re-render local da busca
+$('#agora').addEventListener('click', () => carregar());
+
+(async function init() {
+  await carregarNamespaces();
+  await carregar();
+  timer = setInterval(carregar, 15000); // ADR-03: intervalo fixo
+})();
+</script>
+</body>
+</html>

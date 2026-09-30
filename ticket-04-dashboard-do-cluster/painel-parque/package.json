@@ -1,0 +1,14 @@
+{
+  "name": "painel-parque",
+  "version": "1.0.0",
+  "description": "Dashboard de leitura do cluster (Ticket 04 \u2014 Desafio 03 Parque da Metacortex)",
+  "main": "src/servidor.js",
+  "scripts": {
+    "start": "node src/servidor.js",
+    "verificar-leitura": "node src/verificar-leitura.js"
+  },
+  "dependencies": {
+    "@kubernetes/client-node": "^0.22.0",
+    "express": "^4.19.0"
+  }
+}
