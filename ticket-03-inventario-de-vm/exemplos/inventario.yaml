@@ -1,0 +1,25 @@
+# Inventário do parque (sandbox: 3 VMs dropbear em IPs de loopback)
+hosts:
+  - nome: web-01
+    host: 127.0.0.11
+    porta: 2221
+    usuario: ethos
+    chave: ../../tmp/vm/keys/client_key
+    perfil: web
+  - nome: web-02
+    host: 127.0.0.12
+    porta: 2221
+    usuario: ethos
+    chave: ../../tmp/vm/keys/client_key
+    perfil: web
+  - nome: db-01
+    host: 127.0.0.13
+    porta: 2221
+    usuario: ethos
+    chave: ../../tmp/vm/keys/client_key
+    perfil: db
+opcoes:
+  ssh_cmd: ../../tmp/vm/bin/dbclient-wrapper.sh
+  strict_hostkeys: false
+  timeout_conexao: 10
+  timeout_comando: 15

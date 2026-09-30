@@ -1,0 +1,127 @@
+{
+  "resumo": {
+    "hosts_total": 3,
+    "conforme": 7,
+    "desvio": 0,
+    "nao_verificado": 6
+  },
+  "resultados": [
+    {
+      "host": "web-01",
+      "check": "sysctl-ip-forward",
+      "veredito": "conforme",
+      "severidade": "warning",
+      "esperado": "",
+      "observado": "1",
+      "motivo": ""
+    },
+    {
+      "host": "web-01",
+      "check": "banner-metacortex",
+      "veredito": "nao_verificado",
+      "severidade": "info",
+      "esperado": "",
+      "observado": "",
+      "motivo": "comando falhou (rc=1): cat: can't open '/etc/issue.net': No such file or directory"
+    },
+    {
+      "host": "web-01",
+      "check": "home-perms",
+      "veredito": "conforme",
+      "severidade": "critical",
+      "esperado": "",
+      "observado": "existe",
+      "motivo": ""
+    },
+    {
+      "host": "web-01",
+      "check": "usuario-app",
+      "veredito": "nao_verificado",
+      "severidade": "warning",
+      "esperado": "",
+      "observado": "",
+      "motivo": "comando falhou (rc=1): id: unknown user www-data"
+    },
+    {
+      "host": "web-02",
+      "check": "sysctl-ip-forward",
+      "veredito": "conforme",
+      "severidade": "warning",
+      "esperado": "",
+      "observado": "1",
+      "motivo": ""
+    },
+    {
+      "host": "web-02",
+      "check": "banner-metacortex",
+      "veredito": "nao_verificado",
+      "severidade": "info",
+      "esperado": "",
+      "observado": "",
+      "motivo": "comando falhou (rc=1): cat: can't open '/etc/issue.net': No such file or directory"
+    },
+    {
+      "host": "web-02",
+      "check": "home-perms",
+      "veredito": "conforme",
+      "severidade": "critical",
+      "esperado": "",
+      "observado": "existe",
+      "motivo": ""
+    },
+    {
+      "host": "web-02",
+      "check": "usuario-app",
+      "veredito": "nao_verificado",
+      "severidade": "warning",
+      "esperado": "",
+      "observado": "",
+      "motivo": "comando falhou (rc=1): id: unknown user www-data"
+    },
+    {
+      "host": "db-01",
+      "check": "sysctl-ip-forward",
+      "veredito": "conforme",
+      "severidade": "warning",
+      "esperado": "",
+      "observado": "1",
+      "motivo": ""
+    },
+    {
+      "host": "db-01",
+      "check": "banner-metacortex",
+      "veredito": "nao_verificado",
+      "severidade": "info",
+      "esperado": "",
+      "observado": "",
+      "motivo": "comando falhou (rc=1): cat: can't open '/etc/issue.net': No such file or directory"
+    },
+    {
+      "host": "db-01",
+      "check": "home-perms",
+      "veredito": "conforme",
+      "severidade": "critical",
+      "esperado": "",
+      "observado": "existe",
+      "motivo": ""
+    },
+    {
+      "host": "db-01",
+      "check": "postgres-usuario",
+      "veredito": "nao_verificado",
+      "severidade": "critical",
+      "esperado": "",
+      "observado": "",
+      "motivo": "comando falhou (rc=1): id: unknown user postgres"
+    },
+    {
+      "host": "db-01",
+      "check": "sysctl-swappiness",
+      "veredito": "conforme",
+      "severidade": "warning",
+      "esperado": "",
+      "observado": "200",
+      "motivo": ""
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+# Baseline da plataforma Metacortex — perfis com herança (extends)
+perfis:
+  base:
+    checks:
+      - id: sysctl-ip-forward
+        tipo: comando
+        comando: "sysctl -n net.ipv4.ip_forward 2>/dev/null || cat /proc/sys/net/ipv4/ip_forward 2>/dev/null || echo sem-fato"
+        esperado_regex: "^[01]$"
+        severidade: warning
+      - id: banner-metacortex
+        tipo: comando
+        comando: cat /etc/issue.net
+        esperado_regex: "Metacortex"
+        severidade: info
+      - id: home-perms
+        tipo: arquivo
+        caminho: /etc/passwd
+        esperado: existe
+        severidade: critical
+  web:
+    extends: base
+    checks:
+      - id: usuario-app
+        tipo: comando
+        comando: id www-data
+        esperado_regex: "uid="
+        severidade: warning
+  db:
+    extends: base
+    checks:
+      - id: postgres-usuario
+        tipo: comando
+        comando: id postgres
+        esperado_regex: "uid="
+        severidade: critical
+      - id: sysctl-swappiness
+        tipo: comando
+        comando: "sysctl -n vm.swappiness 2>/dev/null || cat /proc/sys/vm/swappiness 2>/dev/null || echo sem-fato"
+        esperado_regex: "^[0-9]+$"
+        severidade: warning
