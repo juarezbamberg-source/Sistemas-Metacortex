@@ -1,0 +1,44 @@
+name: Validar YAMLs
+
+on:
+  pull_request:
+    paths:
+      - "**.yaml"
+      - "**.yml"
+      - ".github/workflows/validar-yamls.yml"
+  push:
+    branches: [main]
+    paths:
+      - "**.yaml"
+      - "**.yml"
+      - ".github/workflows/validar-yamls.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  kubeconform:
+    name: Kubeconform strict
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Baixar kubeconform
+        run: |
+          curl -sSLo kc.tar.gz "https://github.com/yannh/kubeconform/releases/download/v0.7.0/kubeconform-linux-amd64.tar.gz"
+          tar -xf kc.tar.gz kubeconform
+          chmod +x kubeconform
+
+      - name: Validar manifests (chamados + workload)
+        run: |
+          ./kubeconform -strict -summary -ignore-missing-schemas \
+            ticket-02-triagem-no-cluster/chamados/ \
+            ticket-01-padrao-de-manifests/execucao/modo-escrita/
+
+      - name: Validar regras da casa (script da skill do Ticket 01)
+        run: |
+          python3 ticket-01-padrao-de-manifests/skill/scripts/validar_padrao.py \
+            ticket-01-padrao-de-manifests/execucao/modo-escrita/kube-news
+          python3 ticket-01-padrao-de-manifests/skill/scripts/validar_padrao.py \
+            ticket-01-padrao-de-manifests/execucao/modo-escrita/fake-shop
