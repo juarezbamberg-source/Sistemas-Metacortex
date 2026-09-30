@@ -11,6 +11,10 @@ Entregas do Desafio 03 da pós em Engenharia Cloud com IA: skills de manifests e
 | 03 | Inventário e drift de VM por SSH (spec + código) | [ticket-03-inventario-de-vm/](ticket-03-inventario-de-vm/) | ✅ entregue |
 | 04 | Dashboard de leitura do cluster (spec + código) | [ticket-04-dashboard-do-cluster/](ticket-04-dashboard-do-cluster/) | ✅ entregue |
 
+## Bônus — marketing pessoal
+
+- [**Dar acesso não é dar método** — post com as três lições do desafio](bonus/post-dar-acesso-nao-e-dar-metodo.md)
+
 ## Agente e modelos usados
 
 - **Agente**: leao (assistente pessoal do Juarez, sandbox arm64 Linux)
