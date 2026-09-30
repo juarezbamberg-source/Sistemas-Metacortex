@@ -1,0 +1,75 @@
+# Kube-news (cliente nyx) — Deployment conforme o padrão da casa.
+# Fontes lidas no projeto: src/server.js (porta 8080), src/system-life.js
+# (/health e /ready implementados), src/models/post.js (env vars de banco),
+# package.json (start = node server.js).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kube-news
+  namespace: nyx-dev
+  labels:
+    app.kubernetes.io/name: kube-news
+    app.kubernetes.io/instance: nyx-dev
+    app.kubernetes.io/part-of: nyx
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: plataforma-nyx
+    metacortex.io/runbook: https://wiki.metacortex.io/runbooks/kube-news
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kube-news
+      app.kubernetes.io/instance: nyx-dev
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: kube-news
+        app.kubernetes.io/instance: nyx-dev
+        app.kubernetes.io/part-of: nyx
+        app.kubernetes.io/managed-by: platform
+    spec:
+      serviceAccountName: kube-news
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+      containers:
+        - name: api
+          image: registry.metacortex.io/nyx/kube-news:1.0.0
+          ports:
+            - name: http
+              containerPort: 8080
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests: {cpu: 100m, memory: 128Mi}
+            limits: {cpu: 500m, memory: 512Mi}
+          readinessProbe:
+            httpGet: {path: /ready, port: 8080}
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet: {path: /health, port: 8080}
+            initialDelaySeconds: 20
+            periodSeconds: 20
+          env:
+            - name: DB_HOST
+              valueFrom: {configMapKeyRef: {name: kube-news, key: db_host}}
+            - name: DB_DATABASE
+              valueFrom: {configMapKeyRef: {name: kube-news, key: db_database}}
+            - name: DB_USERNAME
+              valueFrom: {configMapKeyRef: {name: kube-news, key: db_username}}
+            - name: DB_PASSWORD
+              valueFrom: {secretKeyRef: {name: kube-news-db, key: password}}
+            - name: DB_PORT
+              value: "5432"
+          volumeMounts:
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - name: tmp
+          emptyDir: {}

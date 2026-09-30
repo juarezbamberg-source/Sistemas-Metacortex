@@ -1,0 +1,97 @@
+# Fake-shop (cliente orion) — Deployment conforme o padrão da casa.
+#
+# Descobertas lendo o projeto (github.com/KubeDev/fake-shop):
+#   - src/entrypoint.sh: roda `flask db upgrade` (migração Alembic) ANTES do
+#     gunicorn — a migração é do start do container, não um Job separado.
+#   - src/index.py: gunicorn bind 0.0.0.0:5000; env vars DB_HOST, DB_NAME,
+#     DB_USER, DB_PASSWORD (senha não pode entrar em texto puro).
+#   - NENHUM endpoint de saúde: o padrão da casa exige readiness/liveness
+#     (regra 2.2) e o app não expõe nada. Decisão: usar a própria porta TCP
+#     como probe (tcpSocket) — prova "processo escutando", não "app sadia".
+#     O endpoint /metrics existe (prometheus_flask_exporter), mas não é
+#     healthcheck. Justificativa registrada para a Seraph.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fake-shop
+  namespace: orion-dev
+  labels:
+    app.kubernetes.io/name: fake-shop
+    app.kubernetes.io/instance: orion-dev
+    app.kubernetes.io/part-of: orion
+    app.kubernetes.io/managed-by: platform
+  annotations:
+    metacortex.io/owner: plataforma-orion
+    metacortex.io/runbook: https://wiki.metacortex.io/runbooks/fake-shop
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: fake-shop
+      app.kubernetes.io/instance: orion-dev
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: fake-shop
+        app.kubernetes.io/instance: orion-dev
+        app.kubernetes.io/part-of: orion
+        app.kubernetes.io/managed-by: platform
+    spec:
+      serviceAccountName: fake-shop
+      automountServiceAccountToken: false
+      terminationGracePeriodSeconds: 40
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+      containers:
+        - name: web
+          image: registry.metacortex.io/orion/fake-shop:1.14.2
+          ports:
+            - name: http
+              containerPort: 5000
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          resources:
+            requests: {cpu: 100m, memory: 192Mi}
+            limits: {cpu: 500m, memory: 512Mi}
+          readinessProbe:
+            # sem endpoint de saúde no app: tcpSocket prova que o gunicorn
+            # está escutando; a saúde real da aplicação só o /metrics mostra
+            tcpSocket: {port: 5000}
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket: {port: 5000}
+            initialDelaySeconds: 30
+            periodSeconds: 20
+          lifecycle:
+            preStop:
+              exec: {command: ["sleep", "5"]}
+          env:
+            - name: DB_HOST
+              valueFrom: {configMapKeyRef: {name: fake-shop, key: db_host}}
+            - name: DB_NAME
+              valueFrom: {configMapKeyRef: {name: fake-shop, key: db_name}}
+            - name: DB_USER
+              valueFrom: {configMapKeyRef: {name: fake-shop, key: db_user}}
+            - name: DB_PORT
+              value: "5432"
+            - name: DB_PASSWORD
+              valueFrom: {secretKeyRef: {name: fake-shop-db, key: password}}
+            - name: FLASK_APP
+              value: index.py
+            - name: PROMETHEUS_MULTIPROC_DIR
+              value: /tmp/metrics
+          volumeMounts:
+            - {name: tmp, mountPath: /tmp}
+      volumes:
+        - name: tmp
+          emptyDir: {}
