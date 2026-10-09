@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "kubernetes": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-server-kubernetes"
+      ],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled_tools": [
+        "port_forward_create", "port_forward_delete",
+        "helm_install", "helm_uninstall", "helm_upgrade", "helm_rollback",
+        "scale_deployment", "scale_statefulset", "cronjob_suspend", "cronjob_resume", "cronjob_trigger",
+        "pod_delete", "deployment_delete", "service_delete", "job_delete", "statefulset_delete", "daemonset_delete",
+        "resource_create", "resource_update", "resource_patch", "resource_delete", "apply_yaml", "delete_yaml",
+        "configmap_create", "configmap_update", "configmap_delete",
+        "secret_create", "secret_update", "secret_delete",
+        "namespace_create", "namespace_delete",
+        "ingress_create", "ingress_update", "ingress_delete",
+        "exec_command", "exec_into_pod"
+      ]
+    }
+  }
+}

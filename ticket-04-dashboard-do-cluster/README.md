@@ -6,7 +6,8 @@ Aplicação local **somente leitura** (Node + Express + @kubernetes/client-node)
 
 | Item | Caminho |
 |---|---|
-| **Documentos de spec** | [`spec/PRD.md`](spec/PRD.md) · [`spec/TRD-ADRs.md`](spec/TRD-ADRs.md) (4 ADRs obrigatórios) |
+| **Documentos de spec** | [`spec/PRD.md`](spec/PRD.md) · [`spec/TRD-ADRs.md`](spec/TRD-ADRs.md) (**5 ADRs** — inclui o recorte da primeira fatia) |
+| **Ciclo OpenSpec versionado** (proposta, tarefas, specs, arquivamento) | [`openspec/changes/dashboard-leitura/openspec.md`](openspec/changes/dashboard-leitura/openspec.md) |
 | **Código** | [`painel-parque/`](painel-parque/) — `src/servidor.js` (API), `src/public/index.html` (UI), `src/verificar-leitura.js` (garantia) |
 | **Evidência de execução** | [`evidencia/`](evidencia/) — overview real de nyx-prod e orion-dev (pods CrashLoopBackOff/ImagePullBackOff capturados) + respostas dos 3 cenários de falha |
 | **Registro das skills durante o projeto** | abaixo, seção "Observação das skills" |

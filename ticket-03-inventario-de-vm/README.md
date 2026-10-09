@@ -7,6 +7,8 @@ CLI **somente leitura** que conecta por SSH, coleta fatos das VMs, compara com a
 | Item | Caminho |
 |---|---|
 | Especificação (arco OpenSpec) | [`spec/PRD.md`](spec/PRD.md) · [`spec/TRD-ADRs.md`](spec/TRD-ADRs.md) (4 ADRs) |
+| **Ciclo OpenSpec versionado** (proposta, tarefas, specs, arquivamento) | [`openspec/changes/auditoria-vm-ssh/openspec.md`](openspec/changes/auditoria-vm-ssh/openspec.md) |
+| **Laudo no contrato do enunciado** (host/inventario/conformidade/resumo, 11 regras) | [`evidencia/laudo.json`](evidencia/laudo.json) · [`evidencia/laudo.md`](evidencia/laudo.md) |
 | Ferramenta | [`metavm.py`](metavm.py) (módulo único: modelo, baseline com herança `extends`, coleta, comparação, relatórios, CLI) |
 | Baseline e inventário de exemplo | [`exemplos/baseline.yaml`](exemplos/baseline.yaml) · [`exemplos/inventario.yaml`](exemplos/inventario.yaml) |
 | Relatórios reais do parque | [`exemplos/saida/laudo.md`](exemplos/saida/laudo.md) · [`exemplos/saida/laudo.json`](exemplos/saida/laudo.json) |

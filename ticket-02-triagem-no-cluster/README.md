@@ -24,7 +24,7 @@ Método único de plantão (da Trinity/SRE) empacotado em skill: sintoma → cam
 
 ## Garantia de não-escrita
 
-- Servidor mcp-server-kubernetes em **modo não destrutivo** (sem capacidades de apply/delete/scale)
+- Servidor mcp-server-kubernetes em **modo não destrutivo**, configurado pelo **bloco versionado** [`skill/config/mcp-server-kubernetes.json`](skill/config/mcp-server-kubernetes.json) — 36 ferramentas de escrita desabilitadas (apply/delete/patch/scale/exec/port-forward/helm)
 - A skill lista explicitamente o que **não** pede (apply, delete, patch, scale, exec) e o que faz com cada correção: **propõe, nunca aplica**
 - Fluxo executado antes da skill existir provou o comportamento: nenhuma escrita em todo o T02
 

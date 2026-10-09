@@ -48,3 +48,16 @@ GET /api/overview?namespace=X        → { pods: [...], deployments: [...], serv
 
 - Única dependência de rede: `@kubernetes/client-node`; chamadas restritas a `listNamespaced*` (GET).
 - Linter/roteiro de verificação: `grep -rnE "\.apply|\.delete|\.patch|\.create|\.replace|apiVersion.*exec" src/` deve retornar vazio — verificado no teste.
+
+## ADR-05 — Recorte da primeira fatia: retrato de UM namespace, sem watch, sem histórico
+
+**Contexto**: o PRD lista tudo que a tela "precisa no mínimo" — mas tentar entregar tudo de uma vez (multicluster, watch, histórico, detalhe por pod, logs) faria a primeira versão atrasar e o time não validaria o valor real cedo. A pergunta do recorte: o que entra na PRIMEIRA spec e o que fica para depois?
+
+**Alternativas consideradas**:
+1. **Fatia mínima vertical (escolhida)**: retrato de UM namespace (pods/deployments/services/eventos + filtro + busca + 3 cenários de falha), atualização por intervalo, contexto corrente fixo. Um namespace de cada vez, sem seleção de cluster.
+2. **Fatia por camada**: primeiro só pods, depois services, depois eventos — cada fatia é horizontal e nenhuma entrega valor sozinha (pods sem services não respondem a pergunta de plantão nenhuma). Descartada: fatia vertical entrega valor completo por vez.
+3. **Fatia completa de leitura + já com watch**: inclui streaming de mudanças desde a v1. Descartada: watch multiplica a complexidade de reconexão (4 streams sobre túnel) antes de o time validar o valor do retrato estático; ADR-03 já registrou o trade-off.
+
+**Decisão**: fatia 1 = retrato vertical de um namespace, somente leitura, intervalo fixo, com os 3 cenários de falha TRATADOS desde o início (não são "detalhe": são requisito de plantão). Ficam para fatias seguintes: watch/streaming (se o intervalo provar insuficiente), detalhe por pod (logs/describe), histórico de reinícios, e qualquer multicluster (fora de escopo por decisão do PRD, não por recorte).
+
+**Consequências**: + a primeira versão foi entregue e validada ponta a ponta em uma sessão; − o operador que quiser comparar dois namespaces alterna no filtro (aceitável para o retrato de plantão).

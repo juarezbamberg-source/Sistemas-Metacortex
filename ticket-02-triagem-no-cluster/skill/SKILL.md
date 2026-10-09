@@ -10,7 +10,7 @@ Método da Trinity (SRE): toda triagem começa pelo sintoma, desce as camadas nu
 
 ## Ferramenta de acesso
 
-`mcp-server-kubernetes` em **modo não destrutivo** (sem flags de delete/apply/scale). Toda leitura vai por ele; se indisponível, `kubectl` somente leitura é o fallback equivalente.
+`mcp-server-kubernetes` em **modo não destrutivo**, configurado pelo bloco versionado em [`config/mcp-server-kubernetes.json`](config/mcp-server-kubernetes.json) (todas as ferramentas de escrita desabilitadas: apply/delete/patch/scale/exec/port-forward/helm). Toda leitura vai por ele; se indisponível, `kubectl` somente leitura é o fallback equivalente.
 
 ## O método (4 passos, nesta ordem)
 
