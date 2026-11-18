@@ -1,6 +1,6 @@
 # Ticket 02 — Skill de triagem de cluster
 
-Método único de plantão (da Trinity/SRE) empacotado em skill: sintoma → camadas numa ordem fixa → cruzamento de fontes → veredito de 4 linhas. **Somente leitura** via mcp-server-kubernetes (modo não destrutivo).
+Método único de plantão (da Trinity/SRE) empacotado em skill: sintoma → camadas numa ordem fixa → cruzamento de fontes → veredito de 4 linhas. **Somente leitura** via mcp-server-kubernetes (modo não destrutivo + RBAC).
 
 ## Onde está cada item do "Entregue"
 
@@ -13,6 +13,7 @@ Método único de plantão (da Trinity/SRE) empacotado em skill: sintoma → cam
 | **Matriz de roteamento** (10 frases, erros e correções) | [`execucao/matriz-roteamento.md`](execucao/matriz-roteamento.md) |
 | **Comparação com/sem skill** (2 casos: tokens/tempo/qualidade) | [`execucao/parte-c/comparacao.md`](execucao/parte-c/comparacao.md) |
 | **A curadoria** (o que o método fixa × deixa ao agente; garantia de leitura) | [`skill/SKILL.md` → "O método", "Fora de escopo", "Permissões"](skill/SKILL.md) |
+| **Evidência das chamadas ao MCP** (ao vivo, 2026-11-18) | [`execucao/evidencia-mcp/`](execucao/evidencia-mcp/) |
 
 ## Causas identificadas (prova real, cluster kind v1.35.0)
 
@@ -24,7 +25,7 @@ Método único de plantão (da Trinity/SRE) empacotado em skill: sintoma → cam
 
 ## Garantia de não-escrita
 
-- Servidor mcp-server-kubernetes em **modo não destrutivo**, configurado pelo **bloco versionado** [`skill/config/mcp-server-kubernetes.json`](skill/config/mcp-server-kubernetes.json) — 36 ferramentas de escrita desabilitadas (apply/delete/patch/scale/exec/port-forward/helm)
+- Servidor mcp-server-kubernetes em **modo não destrutivo** (`ALLOW_ONLY_NON_DESTRUCTIVE_TOOLS=true`, bloco versionado em [`skill/config/mcp-server-kubernetes.json`](skill/config/mcp-server-kubernetes.json)) **+ RBAC de leitura** ([`skill/config/rbac-leitura.yaml`](skill/config/rbac-leitura.yaml)): mesmo com apply/patch/scale liberados no modo não destrutivo, o apiserver nega escrita ao SA `triagem-ro` — **provado ao vivo** em [`execucao/evidencia-mcp/`](execucao/evidencia-mcp/) (`kubectl_scale` → `Forbidden: User "system:serviceaccount:default:triagem-ro" cannot patch deployments/scale`)
 - A skill lista explicitamente o que **não** pede (apply, delete, patch, scale, exec) e o que faz com cada correção: **propõe, nunca aplica**
 - Fluxo executado antes da skill existir provou o comportamento: nenhuma escrita em todo o T02
 
