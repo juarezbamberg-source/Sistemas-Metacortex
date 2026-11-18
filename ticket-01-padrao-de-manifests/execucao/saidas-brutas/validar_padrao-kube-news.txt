@@ -1,0 +1,7 @@
+✓ Sistemas-Metacortex/ticket-01-padrao-de-manifests/execucao/modo-escrita/kube-news/config-secret.yaml
+✓ Sistemas-Metacortex/ticket-01-padrao-de-manifests/execucao/modo-escrita/kube-news/deployment.yaml
+✓ Sistemas-Metacortex/ticket-01-padrao-de-manifests/execucao/modo-escrita/kube-news/service.yaml
+✓ Sistemas-Metacortex/ticket-01-padrao-de-manifests/execucao/modo-escrita/kube-news/serviceaccount.yaml
+
+padrão da casa: 4 arquivo(s) · 0 falha(s) · 0 aviso(s)
+APROVADO — nenhuma violação.

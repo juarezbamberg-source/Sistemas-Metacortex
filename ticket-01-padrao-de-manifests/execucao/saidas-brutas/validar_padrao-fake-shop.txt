@@ -1,0 +1,6 @@
+✓ Sistemas-Metacortex/ticket-01-padrao-de-manifests/execucao/modo-escrita/fake-shop/config-secret.yaml
+✓ Sistemas-Metacortex/ticket-01-padrao-de-manifests/execucao/modo-escrita/fake-shop/deployment.yaml
+✓ Sistemas-Metacortex/ticket-01-padrao-de-manifests/execucao/modo-escrita/fake-shop/service-sa.yaml
+
+padrão da casa: 3 arquivo(s) · 0 falha(s) · 0 aviso(s)
+APROVADO — nenhuma violação.
