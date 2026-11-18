@@ -1,0 +1,21 @@
+# RBAC de leitura para a skill de triagem — a garantia de "só leitura" é do apiserver,
+# não da boa vontade do cliente. Aplicar ANTES de usar o MCP:
+#   kubectl apply -f skill/config/rbac-leitura.yaml
+#   kubectl create clusterrolebinding triagem-ro --clusterrole=triagem-somente-leitura --serviceaccount=default:triagem-ro
+#   kubectl create token triagem-ro -n default --duration=24h
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: triagem-ro
+  namespace: default
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: triagem-somente-leitura
+rules:
+  - apiGroups: ["", "apps", "discovery.k8s.io", "batch"]
+    resources: ["pods", "pods/log", "services", "endpoints", "endpointslices",
+                 "deployments", "replicasets", "statefulsets", "daemonsets",
+                 "events", "namespaces", "nodes", "jobs", "cronjobs"]
+    verbs: ["get", "list", "watch"]
