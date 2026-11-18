@@ -249,7 +249,8 @@ def main() -> int:
 
     total_f, total_a = 0, 0
     for arq in arquivos:
-        ambiente = arq.parent.name if arq.parent.name in ("dev", "stg", "prod") else None
+        # ambiente vem do NAMESPACE dos objetos (nyx-prod -> prod), não da pasta;
+        # a pasta (dev/stg/prod) é só fallback quando o objeto não declara namespace
         try:
             docs = [d for d in yaml.safe_load_all(arq.read_text(encoding="utf-8")) if isinstance(d, dict)]
         except yaml.YAMLError as e:
@@ -259,9 +260,27 @@ def main() -> int:
             continue
         pares = [(arq, d) for d in docs]
         achados = []
+        ambientes = []
         for d in docs:
-            achados += validar_objeto(d, ambiente)
-        achados += cruzar(pares, ambiente)
+            ns = (d.get("metadata") or {}).get("namespace")
+            amb_obj = None
+            if isinstance(ns, str) and "-" in ns:
+                sufixo = ns.rsplit("-", 1)[-1]
+                if sufixo in ("dev", "stg", "prod"):
+                    amb_obj = sufixo
+            elif (d.get("kind") == "Namespace"):
+                nome = ((d.get("metadata") or {}).get("name") or "")
+                if "-" in nome:
+                    sufixo = nome.rsplit("-", 1)[-1]
+                    if sufixo in ("dev", "stg", "prod"):
+                        amb_obj = sufixo
+            amb_final = amb_obj or (arq.parent.name if arq.parent.name in ("dev", "stg", "prod") else None)
+            if amb_final:
+                ambientes.append(amb_final)
+            achados += validar_objeto(d, amb_final)
+        # ambiente dominante do arquivo p/ checagens cruzadas (PDB em prod)
+        amb_arquivo = "prod" if "prod" in ambientes else (ambientes[0] if ambientes else None)
+        achados += cruzar(pares, amb_arquivo)
 
         fs = [x for x in achados if x.nivel == FALHA]
         av = [x for x in achados if x.nivel == AVISO]
