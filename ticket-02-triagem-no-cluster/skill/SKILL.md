@@ -1,7 +1,7 @@
 ---
 name: triagem-cluster-metacortex
-description: This skill should be used when the user reports a Kubernetes incident or symptom — "o pod não sobe", "deployment 0/3", "service sem endpoint", "503 no serviço", "pod reiniciando", "CrashLoopBackOff", "ImagePullBackOff", "OOMKilled", "aplicação fora do ar no cluster", "por que o X está quebrado" — e pede diagnóstico/triagem. Executa um método de leitura determinístico sobre o cluster via mcp-server-kubernetes (modo não destrutivo): nunca aplica, edita ou deleta nada. NÃO usar para revisar YAML antes de aplicar (usar a skill do padrão de manifests), para criar manifests do zero, ou para provisionar infraestrutura (VMs, clusters).
-version: 1.0.0
+description: This skill should be used when the user reports a Kubernetes incident or symptom — "o pod não sobe", "deployment 0/3", "service sem endpoint", "503 no serviço", "pod reiniciando", "CrashLoopBackOff", "ImagePullBackOff", "OOMKilled", "aplicação fora do ar no cluster", "por que o X está quebrado" — e pede diagnóstico/triagem. Executa um método de leitura determinístico sobre o cluster via mcp-server-kubernetes (modo não destrutivo + RBAC de leitura): nunca aplica, edita ou deleta nada. NÃO usar para revisar YAML antes de aplicar (usar a skill do padrão de manifests), para criar manifests do zero, para provisionar infraestrutura (VMs, clusters), ou para incidentes de produção com remediação/post-mortem fora do cluster.
+version: 1.1.0
 ---
 
 # Triagem de cluster Metacortex — método único de plantão
@@ -10,7 +10,7 @@ Método da Trinity (SRE): toda triagem começa pelo sintoma, desce as camadas nu
 
 ## Ferramenta de acesso
 
-`mcp-server-kubernetes` em **modo não destrutivo**, configurado pelo bloco versionado em [`config/mcp-server-kubernetes.json`](config/mcp-server-kubernetes.json) (todas as ferramentas de escrita desabilitadas: apply/delete/patch/scale/exec/port-forward/helm). Toda leitura vai por ele; se indisponível, `kubectl` somente leitura é o fallback equivalente.
+`mcp-server-kubernetes` em **modo não destrutivo**, configurado pelo bloco versionado em [`config/mcp-server-kubernetes.json`](config/mcp-server-kubernetes.json) com `ALLOW_ONLY_NON_DESTRUCTIVE_TOOLS=true` (opção real do servidor). **Atenção**: nesse modo, apply/patch/scale continuam liberados — a garantia de só leitura é reforçada com RBAC: aplicar [`config/rbac-leitura.yaml`](config/rbac-leitura.yaml) (ClusterRole get/list/watch + ServiceAccount `triagem-ro`) e conectar o MCP com o token desse SA. Toda leitura vai por ele; se indisponível, `kubectl` somente leitura é o fallback equivalente.
 
 ## O método (4 passos, nesta ordem)
 
@@ -71,9 +71,14 @@ CONFORTO: <o que continua funcionando ao lado (banco, outros pods)>
 
 ## Permissões que a skill pede
 
-- **Leitura** de pods, deployments, services, endpoints/EndpointSlices, eventos, namespaces (via mcp-server-kubernetes non-destructive ou kubectl read-only)
+- **Leitura** de pods, deployments, services, endpoints/EndpointSlices, eventos, namespaces (via mcp-server-kubernetes com ALLOW_ONLY_NON_DESTRUCTIVE_TOOLS=true + RBAC triagem-somente-leitura)
 - **NÃO pede**: apply, delete, patch, scale, exec, port-forward, nem credenciais de escrita
 
 ## Origem
 
 Nasceu do fluxo executado em 2026-09-30 (Desafio 03, Ticket 02): 3 chamados reais reproduzidos no cluster de laboratório (nyx-prod OOMKilled por limit de 24Mi; orion-stg com tag inexistente v1.14.2; nyx-stg com selector `nyx-api` vs labels `nyxapi` → Endpoints `<none>`), triados com este método antes de serem escritos. Provas e saídas reais em `../execucao/`.
+
+## Histórico
+
+- 1.1.0 (2026-11-18): modo não destrutivo corrigido para a opção real do servidor (ALLOW_ONLY_NON_DESTRUCTIVE_TOOLS) + RBAC de leitura versionado e provado ao vivo; evidência MCP em execucao/evidencia-mcp/.
+- 1.0.0 (2026-09-30): primeira versão, nascida do fluxo dos 3 chamados.
