@@ -1,0 +1,5 @@
+laudos em ticket-03-inventario-de-vm/evidencia/exec2/laudo.json e ticket-03-inventario-de-vm/evidencia/exec2/laudo.md
+resumo: 3 conforme · 3 desvio · 5 nao_verificado
+exit2=1
+
+(diff entre exec1 e exec2: vazio exceto coletado_em — IDEMPOTENTE)

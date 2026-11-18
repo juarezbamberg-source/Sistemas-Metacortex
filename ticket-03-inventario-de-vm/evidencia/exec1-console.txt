@@ -1,0 +1,3 @@
+laudos em ticket-03-inventario-de-vm/evidencia/exec1/laudo.json e ticket-03-inventario-de-vm/evidencia/exec1/laudo.md
+resumo: 3 conforme · 3 desvio · 5 nao_verificado
+exit1=1

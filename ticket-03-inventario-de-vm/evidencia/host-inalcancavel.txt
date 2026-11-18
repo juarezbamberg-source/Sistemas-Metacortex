@@ -1,0 +1,3 @@
+host inalcançável (127.0.0.99:2221): rc=1
+verifique endereço, porta, chave e se o SSH está no ar — nada foi coletado
+exit-morto=2
