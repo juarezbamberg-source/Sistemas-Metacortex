@@ -89,7 +89,7 @@ spec:
             - name: FLASK_APP
               value: index.py
             - name: PROMETHEUS_MULTIPROC_DIR
-              value: /tmp/metrics
+              value: /tmp
           volumeMounts:
             - {name: tmp, mountPath: /tmp}
       volumes:

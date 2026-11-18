@@ -11,3 +11,7 @@ Ao aplicar os manifests no cluster com a imagem `fabricioveronez/fake-shop:v26`:
   volume, o valor deve ser o ponto de montagem existente (ou o app precisa criar o dir no
   start). Isso é regra candidata à instrução da skill: "caminhos de env × volumeMounts
   precisam existir — emptyDir não cria subdiretórios".
+
+**Corrigido em 2026-11-18**: o manifest desta pasta agora aponta `PROMETHEUS_MULTIPROC_DIR=/tmp`
+(ponto de montagem existente) e o validador aprova a pasta sem avisos. O achado permanece
+como lição da skill.
