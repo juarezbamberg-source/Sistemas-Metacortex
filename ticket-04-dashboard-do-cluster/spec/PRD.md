@@ -41,6 +41,31 @@ Nenhuma escrita: nada de apply/delete/patch/scale/exec. A garantia precisa estar
 | RF-06 | Filtro por namespace + busca por nome (pods/services/deployments) |
 | RF-07 | Tratar os 3 cenários de falha do ambiente com mensagens acionáveis |
 
+## 5.1 Vocabulário — o que "pronta" significa (definição que o painel usa)
+
+A palavra "pronta" aparece em quatro níveis diferentes e o painel **não pode misturá-los**.
+Esta é a definição que o código implementa, escrita aqui porque um número exibido sem
+definição é um número que o plantonista interpreta errado.
+
+| Nível | Campo de origem | "pronta" significa | Como aparece na tela |
+|---|---|---|---|
+| **Container** | `containerStatuses[i].ready` | o `readinessProbe` do container passou (ou, sem probe declarada, o container está rodando) — o kubelet o inclui nos endpoints do Service | é o que decide se o pod conta como pronto; não é mostrado como número |
+| **Pod** | soma dos containers | **todos** os containers estão `ready` — um sidecar não-pronto deixa o pod inteiro não-pronto | estado `Running (não-ready)` + motivo (ex.: "probe não passando"), distinguindo de `Running` |
+| **Deployment (contagem)** | `status.readyReplicas` | número de pods cujo conjunto de containers está todo pronto; **campo ausente = 0** (nunca "desconhecido") | `prontas/desejadas`, ex.: `0/2` |
+| **Service (endpoint)** | EndpointSlice `endpoints[].conditions.ready` | o endpoint existe **e** está `ready` (o Service só roteia para pronto) | `temEndpoint: true/false` |
+
+Regras de leitura que decorrem disso:
+
+1. **`ready != fase`**: um pod em fase `Running` pode ter `ready: false`. O painel mostra
+   `Running (não-ready)` — jamais `Running` puro, que faria o plantonista achar que está tudo bem.
+2. **Ausente ≠ zero ≠ vazio**: `readyReplicas` ausente → `0`; `endpoints` ausente no slice → sem
+   endpoint; `subsets` ausente no Endpoints (fallback) → sem endpoint. Nunca se infere "ok" de
+   um campo que o apiserver não mandou.
+3. **Reinício não é falha de readiness**: `restartCount` alto com `ready: true` é pod pronto e
+   instável — o painel mostra os dois números separados de propósito.
+4. **`desejadas`** é `spec.replicas` e, quando ausente, vale **1** (default do Kubernetes), não 0 —
+   o zero é do lado das prontas.
+
 ## 6. Requisitos não funcionais
 
 - **RNF-01** Só leitura (garantia em código).
