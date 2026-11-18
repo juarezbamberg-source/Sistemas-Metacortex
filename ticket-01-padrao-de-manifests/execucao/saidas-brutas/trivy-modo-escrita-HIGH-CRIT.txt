@@ -1,0 +1,29 @@
+2026-11-18T14:52:13-03:00	INFO	[misconfig] Misconfiguration scanning is enabled
+2026-11-18T14:52:13-03:00	INFO	[checks-client] Using existing checks from cache	path="/home/ethos/.assistant/workspace/.cache/trivy/policy/content"
+2026-11-18T14:52:18-03:00	INFO	Detected config files	num=7
+
+Report Summary
+
+┌───────────────────────────────┬────────────┬───────────────────┐
+│            Target             │    Type    │ Misconfigurations │
+├───────────────────────────────┼────────────┼───────────────────┤
+│ fake-shop/config-secret.yaml  │ kubernetes │         0         │
+├───────────────────────────────┼────────────┼───────────────────┤
+│ fake-shop/deployment.yaml     │ kubernetes │         0         │
+├───────────────────────────────┼────────────┼───────────────────┤
+│ fake-shop/service-sa.yaml     │ kubernetes │         0         │
+├───────────────────────────────┼────────────┼───────────────────┤
+│ kube-news/config-secret.yaml  │ kubernetes │         0         │
+├───────────────────────────────┼────────────┼───────────────────┤
+│ kube-news/deployment.yaml     │ kubernetes │         0         │
+├───────────────────────────────┼────────────┼───────────────────┤
+│ kube-news/service.yaml        │ kubernetes │         0         │
+├───────────────────────────────┼────────────┼───────────────────┤
+│ kube-news/serviceaccount.yaml │ kubernetes │         0         │
+└───────────────────────────────┴────────────┴───────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+(saída bruta de `trivy config --severity HIGH,CRITICAL` nos 7 manifests do modo escrita;
+trivy v0.76.2, 2026-11-18. Zero misconfigurations HIGH/CRITICAL.)
