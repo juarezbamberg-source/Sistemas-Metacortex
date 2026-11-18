@@ -21,4 +21,22 @@ Entregas do Desafio 03 da pós em Engenharia Cloud com IA: skills de manifests e
 
 - **Agente**: leao (assistente pessoal do Juarez, sandbox arm64 Linux)
 - **Modelo**: GLM (via Z.ai)
-- **Ferramentas do fluxo**: Python 3.12 + PyYAML (script das regras), Trivy v0.74.0 (camada de segurança), kubeconform v0.8.0 (schema), gh CLI + git (entrega), pytest (validação)
+- **Ferramentas do fluxo**: Python 3.12 + PyYAML (script das regras e o metavm), Trivy v0.76.2 (camada de segurança), kubeconform v0.7.0 (schema, a mesma versão que o CI baixa), Node 20 (painel), git (entrega), pytest-compatível (`python3 tests/test_validador.py`)
+
+## O que o CI verifica
+
+O workflow `validar-yamls.yml` roda em todo push que toque `.yaml/.yml/.py/.js` e tem 3 jobs:
+
+| Job | Verifica |
+|---|---|
+| `manifests` | kubeconform `-strict` nos 10 arquivos (25 recursos), regras da casa em kube-news e fake-shop, e o **teste negativo** (o manifesto barrado tem de reprovar) |
+| `ferramentas` | metavm carrega, o baseline tem as **11 regras** do enunciado, os dois laudos versionados respeitam o contrato (`veredito` válido, `encontrado` nunca com texto de veredito, todo `nao_verificado` com motivo) e **exec1 ≡ exec2** (idempotência) |
+| `painel` | sintaxe do `servidor.js`, `npm run verificar-leitura` (nenhuma chamada de escrita) e o contrato das capturas (cada cenário com o código de erro certo; os 3 overviews com pods) |
+
+## O que está provado com execução real
+
+- **T01**: manifesto barrado → **21 falhas / 5 avisos** (antes 19, sem as regras de produção); kube-news e fake-shop → aprovados; Trivy no barrado → **18 misconfigurations** (3 HIGH).
+- **T02**: `kubectl_scale` via MCP → **Forbidden** pelo RBAC `triagem-ro`; leitura via `kubectl_describe` funcionando.
+- **T03**: laudo real com exit **1**, host morto com exit **2**, duas execuções idênticas.
+- **T04**: 3 cenários de falha capturados do servidor rodando (inacessível / 401 / 403 por recurso) e overview real do `nyx-prod` (`nyx-api` 371 reinícios, 0/2 prontas, OOMKilled exit 137).
+
