@@ -47,7 +47,7 @@ function classificarPod(pod) {
     motivo = waiting.message ?? null;
   }
   if (terminated?.reason === 'OOMKilled') {
-    motivo = `última saída: OOMKilled (exit ${terminated.exitCode})`;
+    motivo = ` última saída: OOMKilled (exit ${terminated.exitCode})`;
   }
   if (estado === 'Running' && cs && !cs.ready) {
     estado = 'Running (não-ready)';
@@ -85,10 +85,18 @@ async function lerNamespace(ns) {
   } else out.erros.push(erroDe(deploys));
 
   if (svcs.status === 'fulfilled') {
-    const slicesOk = slices.status === 'fulfilled' ? slices.value.body.items : [];
+    // ADR-04: EndpointSlice é a fonte; se indisponível, fallback para Endpoints (v1)
+    const slicesOk = slices.status === 'fulfilled' ? slices.value.body.items : null;
+    const eps = slices.status === 'fulfilled' ? null
+      : await coreV1.listNamespacedEndpoints(ns).then(r => r.body.items).catch(() => []);
     out.services = svcs.value.body.items.map((s) => {
-      const doSvc = slicesOk.filter((sl) => sl.metadata.labels?.['kubernetes.io/service-name'] === s.metadata.name);
-      const comEndpoint = doSvc.some((sl) => (sl.endpoints ?? []).length > 0); // campo ausente = sem endpoint
+      let comEndpoint;
+      if (slicesOk !== null) {
+        const doSvc = slicesOk.filter((sl) => sl.metadata.labels?.['kubernetes.io/service-name'] === s.metadata.name);
+        comEndpoint = doSvc.some((sl) => (sl.endpoints ?? []).length > 0); // campo ausente = sem endpoint
+      } else {
+        comEndpoint = (eps ?? []).some((e) => e.metadata.name === s.metadata.name && (e.subsets ?? []).length > 0);
+      }
       return { nome: s.metadata.name, temEndpoint: comEndpoint, portas: (s.spec?.ports ?? []).map((p) => p.port) };
     });
   } else out.erros.push(erroDe(svcs));
