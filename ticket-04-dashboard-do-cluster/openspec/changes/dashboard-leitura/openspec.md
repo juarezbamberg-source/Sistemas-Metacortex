@@ -44,5 +44,5 @@ Pontos em aberto: nenhum — o arco seguiu ao PRD com as 5 decisões em aberto l
 ## Arquivamento
 
 **Status**: IMPLEMENTADO e validado (2026-10-01 no sandbox via API; QA visual na máquina do usuário — "tudo certo").
-**Evidência**: `evidencia/` (overview real de nyx-prod com CrashLoopBackOff 7 reinícios; 3 cenários de falha).
-**Correções da spec durante a implementação**: cliente k8s 0.x é posicional e retorna {response, body} (ADR-02 assumiu 1.x — registrado); emptyDir não cria subdiretórios (achado de runtime documentado no T01); (vaia 2) ADR-01 dizia TypeScript mas o código é JS puro — ADR corrigido com a decisão de descarte registrada; ADR-04 prometia fallback Endpoints — agora implementado no servidor.js.
+**Evidência**: `evidencia/` (overview real de nyx-prod com CrashLoopBackOff; 3 cenários de falha).
+**Correções da spec durante a implementação**: cliente k8s 0.x é posicional e retorna {response, body} (ADR-02 assumiu 1.x — registrado); emptyDir não cria subdiretórios (achado de runtime documentado no T01); (vaia 2) ADR-01 dizia TypeScript mas o código é JS puro — ADR corrigido; ADR-04 prometia fallback Endpoints — agora implementado no servidor.js.

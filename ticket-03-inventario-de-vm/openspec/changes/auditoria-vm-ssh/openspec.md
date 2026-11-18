@@ -5,7 +5,7 @@
 Perguntas feitas ao dono do desafio antes da spec (máx. 3 por rodada, skill brainstorm):
 1. **Estratégia de host SSH**: sandbox sem sshd/sudo — opções: (a) dropbear estático como usuário comum, (b) host fornecido pelo dono, (c) pular execução real. **Decisão do dono: "Tentar dropbear local no sandbox"** (formulário de confirmação).
 2. **Linguagem**: implícita na decisão de stack — Python já usado no validador do T01; confirmada na conversa de spec.
-3. **Escopo da coleta**: o enunciado defineia o que coletar; a pergunta real foi "formato do laudo" — respondida pelo contrato do enunciado (host/inventario/conformidade/resumo).
+3. **Escopo da coleta**: o enunciado definia o que coletar; a pergunta real foi "formato do laudo" — respondida pelo contrato do enunciado (host/inventario/conformidade/resumo).
 
 Pontos em aberto ao final do brainstorm: nenhum bloqueante — o arco seguiu direto ao PRD.
 
@@ -19,7 +19,7 @@ Pontos em aberto ao final do brainstorm: nenhum bloqueante — o arco seguiu dir
 
 ## Tarefas (tasks.md)
 
-- [x] 1. Baseline oficial das 11 regras (so, kernel, servicos, swap, portas, chaves_ssh, ssh.login_de_root, ntp) com severidades
+- [x] 1. Baseline oficial das 11 regras com severidades
 - [x] 2. Coleta SSH somente leitura (9 comandos, usuário comum, timeout)
 - [x] 3. Interpretação: coleta bruta → inventário do contrato (config efetiva ≠ escrita no arquivo)
 - [x] 4. Conformidade: 1 entrada por regra (regra/esperado/encontrado/veredito/severidade), vereditos conforme|desvio|nao_verificado com motivo
@@ -45,10 +45,10 @@ Pontos em aberto ao final do brainstorm: nenhum bloqueante — o arco seguiu dir
 
 ## Arquivamento (archive/)
 
-**Status**: IMPLEMENTADO e validado em 2026-10-09 contra host real (web-01 no parque dropbear do laboratório); evidências regeneradas em 2026-11-18 (vaia 2) com exit codes e idempotência versionados.
+**Status**: IMPLEMENTADO e validado contra host real (parque dropbear do laboratório); evidências regeneradas em 2026-11-18 (vaia 2) com exit codes e idempotência versionados.
 **Evidência**: `evidencia/exec1/` + `evidencia/exec2/` + `evidencia/host-inalcancavel.txt` (exit 1 com desvios, exit 2 host morto, diff vazio entre execuções).
-**Correções da spec durante a implementação** (curadoria pedida pelo enunciado):
-1. `ssh.login_de_root` no laboratório não é verificável como config EFETIVA (exigiria `sshd -T` com privilégio) — o veredito correto é `nao_verificado` com motivo, exatamente como o enunciado prevê.
-2. `portas_em_escuta` no sandbox lê `ss -tlnp` sem o processo dono (sem privilégio) — o veredito de porta/bind é verificável, o dono nem sempre.
+**Correções da spec durante a implementação**:
+1. `ssh.login_de_root` no laboratório não é verificável como config EFETIVA (exigiria `sshd -T` com privilégio) — o veredito correto é `nao_verificado` com motivo.
+2. `portas_em_escuta` lê `ss -tlnp` sem o processo dono (sem privilégio) — porta/bind é verificável, o dono nem sempre.
 3. O baseline de exemplo anterior (perfis web/db genéricos) foi substituído pelo oficial das 11 regras.
 4. (vaia 2) Dado não coletado (swap/portas vazios) era reportado como conforme — corrigido para nao_verificado; por_severidade agora conta só desvios, como o exemplo do enunciado.
