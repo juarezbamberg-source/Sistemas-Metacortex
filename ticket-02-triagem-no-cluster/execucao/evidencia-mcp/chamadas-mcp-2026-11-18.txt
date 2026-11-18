@@ -1,0 +1,15 @@
+=== initialize ===
+{
+ "name": "kubernetes",
+ "version": "4.2.3"
+}
+=== tools/list (17 ferramentas) ===
+explain_resource, install_helm_chart, kubectl_apply, kubectl_context, kubectl_create, kubectl_describe, kubectl_get, kubectl_logs, kubectl_patch, kubectl_reconnect, kubectl_rollout, kubectl_scale, list_api_resources, ping, port_forward, stop_port_forward, upgrade_helm_chart
+=== ferramentas de ESCRITA presentes no modo não destrutivo ===
+install_helm_chart, kubectl_apply, kubectl_create, kubectl_patch, kubectl_scale, port_forward, stop_port_forward
+=== kubectl_describe (resposta crua) ===
+{"content":[{"type":"text","text":"Name:             nyx-api-78587b9b89-8t5hh\nNamespace:        nyx-prod\nPriority:         0\nService Account:  default\nNode:             metacortex-control-plane/172.19.0.5\nStart Time:       Wed, 30 Sep 2026 17:06:20 -0300\nLabels:           app=nyx-api\n                  pod-template-hash=78587b9b9\nAnnotations:      <none>\nStatus:           Running\nIP:               10.244.0.3\nIPs:\n  IP:           10.244.0.3\nControlled By:  ReplicaSet/nyx-api-78587b9b9\nContainers:\n  api:\n    Container ID:   containerd://b9369d4fdab72cd36eedb11783dbf0122384cfc704
+=== deployment_scale nyx-api (deve NEGAR) ===
+{"content":[{"type":"text","text":"{\"success\":false,\"message\":\"MCP error -32603: Failed to scale deployment: Command failed: kubectl scale deployment nyx-api --replicas=1 --namespace=nyx-prod\\nError from server (Forbidden): deployments.apps \\"nyx-api\\" is forbidden: User \\"system:serviceaccount:default:triagem-ro\\" cannot patch resource \\"deployments/scale\\" in API group \\"apps\\" in the namespace \\"nyx-prod\\"",\"success\":false}
+
+--- NOTA: saída integral capturada ao vivo em 2026-11-18. O describe mostra o pod do Chamado 1 (OOMKilled, Restart Count 364 — ver README ao lado); o scale é NEGADO pelo RBAC (triagem-ro), provando que a garantia de só leitura é do apiserver.
