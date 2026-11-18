@@ -1,0 +1,29 @@
+{
+ "namespace": "nyx-prod",
+ "pods": [],
+ "deployments": [],
+ "services": [],
+ "eventos": [],
+ "erros": [
+  {
+   "codigo": "cluster-indisponivel",
+   "mensagem": "Cluster não respondeu (ECONNREFUSED). Verifique o túnel/VPN e o contexto corrente do kubeconfig."
+  },
+  {
+   "codigo": "cluster-indisponivel",
+   "mensagem": "Cluster não respondeu (ECONNREFUSED). Verifique o túnel/VPN e o contexto corrente do kubeconfig."
+  },
+  {
+   "codigo": "cluster-indisponivel",
+   "mensagem": "Cluster não respondeu (ECONNREFUSED). Verifique o túnel/VPN e o contexto corrente do kubeconfig."
+  },
+  {
+   "codigo": "cluster-indisponivel",
+   "mensagem": "Cluster não respondeu (ECONNREFUSED). Verifique o túnel/VPN e o contexto corrente do kubeconfig."
+  },
+  {
+   "codigo": "cluster-indisponivel",
+   "mensagem": "Cluster não respondeu (ECONNREFUSED). Verifique o túnel/VPN e o contexto corrente do kubeconfig."
+  }
+ ]
+}

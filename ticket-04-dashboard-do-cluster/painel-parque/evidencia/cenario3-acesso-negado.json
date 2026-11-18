@@ -1,0 +1,29 @@
+{
+ "namespace": "nyx-prod",
+ "pods": [],
+ "deployments": [],
+ "services": [],
+ "eventos": [],
+ "erros": [
+  {
+   "codigo": "acesso-negado",
+   "mensagem": "Permissão negada (403) para pods — este contexto é de leitura restrita; o restante da tela continua."
+  },
+  {
+   "codigo": "acesso-negado",
+   "mensagem": "Permissão negada (403) para deployments — este contexto é de leitura restrita; o restante da tela continua."
+  },
+  {
+   "codigo": "acesso-negado",
+   "mensagem": "Permissão negada (403) para services — este contexto é de leitura restrita; o restante da tela continua."
+  },
+  {
+   "codigo": "acesso-negado",
+   "mensagem": "Permissão negada (403) para endpointslices — este contexto é de leitura restrita; o restante da tela continua."
+  },
+  {
+   "codigo": "acesso-negado",
+   "mensagem": "Permissão negada (403) para events — este contexto é de leitura restrita; o restante da tela continua."
+  }
+ ]
+}

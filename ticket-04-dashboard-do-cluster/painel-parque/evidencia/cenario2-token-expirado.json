@@ -1,0 +1,29 @@
+{
+ "namespace": "nyx-prod",
+ "pods": [],
+ "deployments": [],
+ "services": [],
+ "eventos": [],
+ "erros": [
+  {
+   "codigo": "credencial-expirada",
+   "mensagem": "Credencial expirada ou inválida (401). Recrie o token/credencial do kubeconfig e reinicie o painel."
+  },
+  {
+   "codigo": "credencial-expirada",
+   "mensagem": "Credencial expirada ou inválida (401). Recrie o token/credencial do kubeconfig e reinicie o painel."
+  },
+  {
+   "codigo": "credencial-expirada",
+   "mensagem": "Credencial expirada ou inválida (401). Recrie o token/credencial do kubeconfig e reinicie o painel."
+  },
+  {
+   "codigo": "credencial-expirada",
+   "mensagem": "Credencial expirada ou inválida (401). Recrie o token/credencial do kubeconfig e reinicie o painel."
+  },
+  {
+   "codigo": "credencial-expirada",
+   "mensagem": "Credencial expirada ou inválida (401). Recrie o token/credencial do kubeconfig e reinicie o painel."
+  }
+ ]
+}
