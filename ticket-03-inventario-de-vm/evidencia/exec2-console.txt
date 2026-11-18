@@ -1,5 +1,6 @@
 laudos em ticket-03-inventario-de-vm/evidencia/exec2/laudo.json e ticket-03-inventario-de-vm/evidencia/exec2/laudo.md
 resumo: 3 conforme · 3 desvio · 5 nao_verificado
-exit2=1
+exit=1
 
-(diff entre exec1 e exec2: vazio exceto coletado_em — IDEMPOTENTE)
+(2ª execução seguida, mesmo host, mesmo código: laudo INTEIRO idêntico ao exec1 exceto
+coletado_em — comparação versionada na descrição do commit e no relatório da vaia 2.)
