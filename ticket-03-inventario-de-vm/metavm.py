@@ -8,8 +8,8 @@ Saídas: JSON (para o Roster) e Markdown (para o plantão).
 Exit: 0 conforme puro · 1 desvios/não-verificados · 2 erro de uso/host morto.
 
 Correções da vaia 2 (2026-11-18):
-- dado não coletado (swap/portas vazios) agora é nao_verificado com motivo,
-  nunca falso-conforme
+- dado não coletado (swap/portas vazios) agora é nao_verificado COM MOTIVO,
+  nunca falso-conforme; o campo 'encontrado' fica None (nunca o texto do veredito)
 - por_severidade conta apenas DESVIOS (como o exemplo do enunciado)
 - ADR-05 de linguagem registrada no TRD
 """
@@ -146,29 +146,30 @@ def interpretar(inv: dict) -> dict:
 def conferir(inv: dict) -> list:
     conf = []
     def add(regra, esperado, encontrado, veredito, sev, motivo=None):
-        item = {"regra": regra, "esperado": esperado, "encontrado": encontrado, "veredito": veredito, "severidade": BASELINE[regra]["severidade"]}
+        item = {"regra": regra, "esperado": esperado, "encontrado": encontrado,
+                "veredito": veredito, "severidade": BASELINE[regra]["severidade"]}
         if motivo: item["motivo"] = motivo
         conf.append(item)
     nv = "nao_verificado"
     so = inv["so"]
-    add("so.distribuicao", "ubuntu", so["distribuicao"] or nv,
+    add("so.distribuicao", "ubuntu", so["distribuicao"],
         "conforme" if so["distribuicao"] == "ubuntu" else ("desvio" if so["distribuicao"] else nv), None)
     if so["versao"]:
         add("so.versao_minima", "22.04", so["versao"], "conforme" if versao_ok(so["versao"], "22.04") else "desvio", None)
     else:
-        add("so.versao_minima", "22.04", nv, nv, "dado não coletado")
+        add("so.versao_minima", "22.04", None, nv, None, "dado não coletado")
     if inv["kernel"]["versao"]:
         add("kernel.versao_minima", "6.5", inv["kernel"]["versao"], "conforme" if versao_ok(inv["kernel"]["versao"], "6.5") else "desvio", None)
     else:
-        add("kernel.versao_minima", "6.5", nv, nv, "dado não coletado")
+        add("kernel.versao_minima", "6.5", None, nv, None, "dado não coletado")
     ativos = {s["nome"]: s["estado"] for s in inv["servicos"] if not s["nome"].startswith("proibido-")}
     faltando = [s for s in BASELINE["servicos.ativos"]["esperado"] if ativos.get(s) != "active"]
     (add("servicos.ativos", BASELINE["servicos.ativos"]["esperado"], [k for k, v in ativos.items() if v == "active"], "desvio" if faltando else "conforme", None)
-     if ativos else add("servicos.ativos", BASELINE["servicos.ativos"]["esperado"], nv, nv, "sem systemctl acessível"))
+     if ativos else add("servicos.ativos", BASELINE["servicos.ativos"]["esperado"], None, nv, None, "sem systemctl acessível"))
     proibidos_ativos = [s["nome"].replace("proibido-", "") for s in inv["servicos"] if s["nome"].startswith("proibido-") and s["estado"] == "active"]
     add("servicos.proibidos", "nenhum ativo", proibidos_ativos or [], "desvio" if proibidos_ativos else "conforme", None)
     if inv["swap"].get("coletado") is False:
-        add("swap.habilitado", False, None, nv, "swapon não retornou dados neste host")
+        add("swap.habilitado", False, None, nv, None, "swapon não retornou dados neste host")
     else:
         add("swap.habilitado", False, inv["swap"]["habilitado"], "desvio" if inv["swap"]["habilitado"] else "conforme", None)
     portas_coletadas = bool(inv.get("portas_em_escuta"))
@@ -178,23 +179,23 @@ def conferir(inv: dict) -> list:
     if portas_coletadas:
         add("portas_em_escuta.publicas_permitidas", permitidas, publicas, "desvio" if fora else "conforme", None)
     else:
-        add("portas_em_escuta.publicas_permitidas", permitidas, None, nv, "ss/netstat não retornaram dados")
+        add("portas_em_escuta.publicas_permitidas", permitidas, None, nv, None, "ss/netstat não retornaram dados")
     internas = sorted({p["porta"] for p in inv["portas_em_escuta"] if p["bind"] not in ("0.0.0.0", "*", "[::]", "::")})
     esperadas_int = BASELINE["portas_em_escuta.somente_rede_interna"]["esperado"]
     expostas = [p for p in esperadas_int if p in publicas]
     add("portas_em_escuta.somente_rede_interna", f"{esperadas_int} só na rede interna", internas or (publicas if expostas else []), "desvio" if expostas else "conforme", None)
     ids = [c["identificacao"] for c in inv["chaves_ssh"]]
     nao_plataforma = [i for i in ids if "metacortex-platform" not in i]
-    (add("chaves_ssh.emitidas_por", "metacortex-platform", ids or nv, "desvio" if nao_plataforma else "conforme", None)
-     if ids else add("chaves_ssh.emitidas_por", "metacortex-platform", nv, nv, "authorized_keys vazio ou inacessível"))
+    (add("chaves_ssh.emitidas_por", "metacortex-platform", ids or None, "desvio" if nao_plataforma else "conforme", None)
+     if ids else add("chaves_ssh.emitidas_por", "metacortex-platform", None, nv, None, "authorized_keys vazio ou inacessível"))
     rl = inv["ssh"]["login_de_root"]
     if rl is None:
-        add("ssh.login_de_root", False, None, nv, "exige privilégio que o usuário da coleta não tem")
+        add("ssh.login_de_root", False, None, nv, None, "exige privilégio que o usuário da coleta não tem")
     else:
         add("ssh.login_de_root", False, rl, "desvio" if rl else "conforme", None)
     ntp = inv["ntp"]["sincronizado"]
-    (add("ntp.sincronizado", True, ntp if ntp is not None else nv, "conforme" if ntp else ("desvio" if ntp is False else nv), None)
-     if ntp is not None else add("ntp.sincronizado", True, nv, nv, "dado não coletado"))
+    (add("ntp.sincronizado", True, ntp, "conforme" if ntp else ("desvio" if ntp is False else nv), None)
+     if ntp is not None else add("ntp.sincronizado", True, None, nv, None, "dado não coletado"))
     for c in conf:
         c["severidade"] = BASELINE[c["regra"]]["severidade"]
     return conf
