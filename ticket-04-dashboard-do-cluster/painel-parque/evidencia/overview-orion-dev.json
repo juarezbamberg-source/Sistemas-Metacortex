@@ -1,0 +1,28 @@
+{
+ "namespace": "orion-dev",
+ "pods": [
+  {
+   "nome": "fake-shop-54d48bdd6f-lb7fx",
+   "estado": "Running",
+   "reinicios": 3,
+   "motivo": null
+  }
+ ],
+ "deployments": [
+  {
+   "nome": "fake-shop",
+   "desejadas": 1,
+   "prontas": 1
+  }
+ ],
+ "services": [
+  {
+   "nome": "fake-shop",
+   "temEndpoint": true,
+   "portas": [
+    80
+   ]
+  }
+ ],
+ "erros": []
+}

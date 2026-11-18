@@ -1,0 +1,46 @@
+{
+ "namespace": "nyx-dev",
+ "pods": [
+  {
+   "nome": "kube-news-9bcccbbbd-lpt5l",
+   "estado": "Running",
+   "reinicios": 9,
+   "motivo": null
+  },
+  {
+   "nome": "kube-news-postgres-7c68964f96-6sgjh",
+   "estado": "Running",
+   "reinicios": 3,
+   "motivo": null
+  }
+ ],
+ "deployments": [
+  {
+   "nome": "kube-news",
+   "desejadas": 1,
+   "prontas": 1
+  },
+  {
+   "nome": "kube-news-postgres",
+   "desejadas": 1,
+   "prontas": 1
+  }
+ ],
+ "services": [
+  {
+   "nome": "kube-news",
+   "temEndpoint": true,
+   "portas": [
+    80
+   ]
+  },
+  {
+   "nome": "kube-news-postgres",
+   "temEndpoint": true,
+   "portas": [
+    5432
+   ]
+  }
+ ],
+ "erros": []
+}
