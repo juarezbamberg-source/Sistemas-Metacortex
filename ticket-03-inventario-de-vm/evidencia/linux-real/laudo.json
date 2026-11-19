@@ -1,0 +1,243 @@
+{
+  "host": {
+    "endereco": "metacortex-control-plane (node do kind, via nsenter no PID 1)",
+    "hostname": "metacortex-control-plane",
+    "coletado_em": "2026-11-19"
+  },
+  "inventario": {
+    "so": {
+      "distribuicao": "debian",
+      "versao": "12"
+    },
+    "kernel": {
+      "versao": "6.6.87.2-microsoft-standard-WSL2"
+    },
+    "servicos": [
+      {
+        "nome": "ssh",
+        "tipo": "service",
+        "estado": "inactive"
+      },
+      {
+        "nome": "containerd",
+        "tipo": "service",
+        "estado": "active"
+      },
+      {
+        "nome": "node_exporter",
+        "tipo": "service",
+        "estado": "inactive"
+      },
+      {
+        "nome": "chrony",
+        "tipo": "service",
+        "estado": "inactive"
+      },
+      {
+        "nome": "proibido-telnet.socket",
+        "tipo": "socket",
+        "estado": "inactive"
+      },
+      {
+        "nome": "proibido-rpcbind.socket",
+        "tipo": "socket",
+        "estado": "inactive"
+      }
+    ],
+    "swap": {
+      "habilitado": true,
+      "tamanho": "partition",
+      "coletado": true
+    },
+    "portas_em_escuta": [
+      {
+        "porta": 33869,
+        "bind": "127.0.0.1",
+        "processo": "users:((\"containerd\",pid=109,fd=15"
+      },
+      {
+        "porta": 10249,
+        "bind": "127.0.0.1",
+        "processo": "users:((\"kube-proxy\",pid=1624,fd=12"
+      },
+      {
+        "porta": 10248,
+        "bind": "127.0.0.1",
+        "processo": "users:((\"kubelet\",pid=205,fd=17"
+      },
+      {
+        "porta": 10257,
+        "bind": "127.0.0.1",
+        "processo": "users:((\"kube-controller\",pid=626,fd=4"
+      },
+      {
+        "porta": 10259,
+        "bind": "127.0.0.1",
+        "processo": "users:((\"kube-scheduler\",pid=651,fd=4"
+      },
+      {
+        "porta": 2379,
+        "bind": "172.19.0.5",
+        "processo": "users:((\"etcd\",pid=669,fd=7"
+      },
+      {
+        "porta": 2380,
+        "bind": "172.19.0.5",
+        "processo": "users:((\"etcd\",pid=669,fd=3"
+      },
+      {
+        "porta": 2379,
+        "bind": "127.0.0.1",
+        "processo": "users:((\"etcd\",pid=669,fd=6"
+      },
+      {
+        "porta": 2381,
+        "bind": "127.0.0.1",
+        "processo": "users:((\"etcd\",pid=669,fd=12"
+      },
+      {
+        "porta": 41083,
+        "bind": "127.0.0.11",
+        "processo": ""
+      },
+      {
+        "porta": 6443,
+        "bind": "*",
+        "processo": "users:((\"kube-apiserver\",pid=589,fd=4"
+      },
+      {
+        "porta": 10256,
+        "bind": "*",
+        "processo": "users:((\"kube-proxy\",pid=1624,fd=10"
+      },
+      {
+        "porta": 10250,
+        "bind": "*",
+        "processo": "users:((\"kubelet\",pid=205,fd=19"
+      }
+    ],
+    "chaves_ssh": [],
+    "ssh": {
+      "login_de_root": null
+    },
+    "ntp": {
+      "sincronizado": null,
+      "mecanismo": null
+    }
+  },
+  "conformidade": [
+    {
+      "regra": "so.distribuicao",
+      "esperado": "ubuntu",
+      "encontrado": "debian",
+      "veredito": "desvio",
+      "severidade": "alto"
+    },
+    {
+      "regra": "so.versao_minima",
+      "esperado": "22.04",
+      "encontrado": "12",
+      "veredito": "desvio",
+      "severidade": "alto"
+    },
+    {
+      "regra": "kernel.versao_minima",
+      "esperado": "6.5",
+      "encontrado": "6.6.87.2-microsoft-standard-WSL2",
+      "veredito": "conforme",
+      "severidade": "medio"
+    },
+    {
+      "regra": "servicos.ativos",
+      "esperado": [
+        "ssh",
+        "containerd",
+        "node_exporter",
+        "chrony"
+      ],
+      "encontrado": [
+        "containerd"
+      ],
+      "veredito": "desvio",
+      "severidade": "alto"
+    },
+    {
+      "regra": "servicos.proibidos",
+      "esperado": "nenhum ativo",
+      "encontrado": [],
+      "veredito": "conforme",
+      "severidade": "alto"
+    },
+    {
+      "regra": "swap.habilitado",
+      "esperado": false,
+      "encontrado": true,
+      "veredito": "desvio",
+      "severidade": "critico"
+    },
+    {
+      "regra": "portas_em_escuta.publicas_permitidas",
+      "esperado": [
+        22
+      ],
+      "encontrado": [
+        6443,
+        10250,
+        10256
+      ],
+      "veredito": "desvio",
+      "severidade": "critico"
+    },
+    {
+      "regra": "portas_em_escuta.somente_rede_interna",
+      "esperado": "[9100] só na rede interna",
+      "encontrado": [
+        2379,
+        2380,
+        2381,
+        10248,
+        10249,
+        10257,
+        10259,
+        33869,
+        41083
+      ],
+      "veredito": "conforme",
+      "severidade": "critico"
+    },
+    {
+      "regra": "chaves_ssh.emitidas_por",
+      "esperado": "metacortex-platform",
+      "encontrado": null,
+      "veredito": "nao_verificado",
+      "severidade": "critico",
+      "motivo": "authorized_keys vazio ou inacessível"
+    },
+    {
+      "regra": "ssh.login_de_root",
+      "esperado": false,
+      "encontrado": null,
+      "veredito": "nao_verificado",
+      "severidade": "alto",
+      "motivo": "exige privilégio que o usuário da coleta não tem"
+    },
+    {
+      "regra": "ntp.sincronizado",
+      "esperado": true,
+      "encontrado": null,
+      "veredito": "nao_verificado",
+      "severidade": "medio",
+      "motivo": "dado não coletado"
+    }
+  ],
+  "resumo": {
+    "conforme": 3,
+    "desvio": 5,
+    "nao_verificado": 3,
+    "por_severidade": {
+      "critico": 2,
+      "alto": 3,
+      "medio": 0
+    }
+  }
+}

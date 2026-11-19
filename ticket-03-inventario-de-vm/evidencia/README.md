@@ -10,6 +10,23 @@ alpine do parque dropbear do laboratório (`127.0.0.11:2221`) e em um endereço 
 | `host-inalcancavel.txt` | endereço inexistente: mensagem clara, nada coletado, exit **2** |
 | `laudo.json` (raiz, de 2026-10-09) | execução anterior à correção da vaia 2 — mantida só como histórico |
 
+
+## Rodada de 2026-11-19 — Linux REAL (elimina a limitação de ambiente)
+
+[`linux-real/`](linux-real/) — auditoria contra o **nó do cluster kind** (Debian 12 de
+verdade), não contra o sandbox. Coleta via `nsenter` no PID 1 do host, e a saída passa
+pelas funções do `metavm.py` do repositório.
+
+**3 conforme · 5 desvio · 3 não verificado** — e os desvios são reais: `debian` em vez de
+`ubuntu`, swap de 2G ligado (crítico), portas `6443/10250/10256` expostas (crítico).
+
+Os 3 `nao_verificado` que restam são legítimos (authorized_keys do root vazio, `sshd -T`
+exige root, nó sem `timedatectl`) — sem dado, não se inventa veredito.
+
+**Bug corrigido por causa desta rodada**: `parse_so()` casava `ID=` dentro de
+`VERSION_ID=`; como o Debian lista `VERSION_ID` primeiro, a distribuição era lida como
+`"12"`. Ancorado no início da linha e verificado nos três formatos (Debian/Ubuntu/Alpine).
+
 ## Como reconferir a idempotência
 
 ```bash

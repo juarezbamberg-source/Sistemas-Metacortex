@@ -82,8 +82,9 @@ def coletar_host(host: Host) -> dict:
 
 def parse_so(txt):
     if not txt: return None, None
-    dist = re.search(r'ID=["\']?([\w-]+)', txt)
-    ver = re.search(r'VERSION_ID=["\']?([\d.]+)', txt)
+    # \b evita casar "ID=" dentro de "VERSION_ID=" (Debian lista VERSION_ID antes de ID)
+    dist = re.search(r'(?m)^ID=["\']?([\w-]+)', txt)
+    ver = re.search(r'(?m)^VERSION_ID=["\']?([\d.]+)', txt)
     return (dist.group(1) if dist else None), (ver.group(1) if ver else None)
 
 def versao_ok(encontrada, minima):
