@@ -1,1 +1,0 @@
-{"erro":{"codigo":"cluster-indisponivel","mensagem":"Cluster não respondeu. Verifique o túnel/VPN e o contexto corrente do kubeconfig."}}
