@@ -4,13 +4,13 @@
   {
    "nome": "kube-news-9bcccbbbd-lpt5l",
    "estado": "Running",
-   "reinicios": 9,
+   "reinicios": 11,
    "motivo": null
   },
   {
    "nome": "kube-news-postgres-7c68964f96-6sgjh",
    "estado": "Running",
-   "reinicios": 3,
+   "reinicios": 4,
    "motivo": null
   }
  ],
@@ -29,7 +29,7 @@
  "services": [
   {
    "nome": "kube-news",
-   "temEndpoint": true,
+   "temEndpoint": false,
    "portas": [
     80
    ]
@@ -40,6 +40,80 @@
    "portas": [
     5432
    ]
+  }
+ ],
+ "eventos": [
+  {
+   "tipo": "Warning",
+   "motivo": "BackOff",
+   "objeto": "Pod/kube-news-9bcccbbbd-lpt5l",
+   "mensagem": "Back-off restarting failed container api in pod kube-news-9bcccbbbd-lpt5l_nyx-dev(97a3eb15-6342-40bc-aad1-d02dba608f7e)",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:54:15.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/kube-news-9bcccbbbd-lpt5l",
+   "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:27.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/kube-news-9bcccbbbd-lpt5l",
+   "mensagem": "Container created",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:27.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/kube-news-9bcccbbbd-lpt5l",
+   "mensagem": "Container started",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:27.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/kube-news-postgres-7c68964f96-6sgjh",
+   "mensagem": "Container started",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:54:03.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/kube-news-postgres-7c68964f96-6sgjh",
+   "mensagem": "Container image \"postgres:16-alpine\" already present on machine and can be accessed by the pod",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:54:02.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/kube-news-postgres-7c68964f96-6sgjh",
+   "mensagem": "Container created",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:54:02.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/kube-news-9bcccbbbd-lpt5l",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:46.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/kube-news-postgres-7c68964f96-6sgjh",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:46.000Z"
   }
  ],
  "erros": []

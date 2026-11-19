@@ -1,0 +1,166 @@
+{
+ "namespace": "nyx-stg",
+ "pods": [
+  {
+   "nome": "nyx-api-64ddf46d7d-8g9q4",
+   "estado": "Running",
+   "reinicios": 12,
+   "motivo": null
+  },
+  {
+   "nome": "nyx-api-64ddf46d7d-c9m49",
+   "estado": "Running",
+   "reinicios": 11,
+   "motivo": null
+  },
+  {
+   "nome": "nyx-postgres-7ffbcfbbcb-xp47z",
+   "estado": "Running",
+   "reinicios": 4,
+   "motivo": null
+  }
+ ],
+ "deployments": [
+  {
+   "nome": "nyx-api",
+   "desejadas": 2,
+   "prontas": 2
+  },
+  {
+   "nome": "nyx-postgres",
+   "desejadas": 1,
+   "prontas": 1
+  }
+ ],
+ "services": [
+  {
+   "nome": "nyx-api",
+   "temEndpoint": true,
+   "portas": [
+    80
+   ]
+  },
+  {
+   "nome": "nyx-postgres",
+   "temEndpoint": true,
+   "portas": [
+    5432
+   ]
+  }
+ ],
+ "eventos": [
+  {
+   "tipo": "Warning",
+   "motivo": "BackOff",
+   "objeto": "Pod/nyx-api-64ddf46d7d-8g9q4",
+   "mensagem": "Back-off restarting failed container api in pod nyx-api-64ddf46d7d-8g9q4_nyx-stg(14add54e-0c63-46f2-8ff2-642a087a3ba1)",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:16.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "BackOff",
+   "objeto": "Pod/nyx-api-64ddf46d7d-c9m49",
+   "mensagem": "Back-off restarting failed container api in pod nyx-api-64ddf46d7d-c9m49_nyx-stg(bded514e-64e2-4c60-96fa-45a976618f7d)",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:16.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-api-64ddf46d7d-c9m49",
+   "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:27.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/nyx-api-64ddf46d7d-c9m49",
+   "mensagem": "Container created",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:27.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/nyx-api-64ddf46d7d-c9m49",
+   "mensagem": "Container started",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:27.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-api-64ddf46d7d-8g9q4",
+   "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:25.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/nyx-api-64ddf46d7d-8g9q4",
+   "mensagem": "Container created",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:25.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/nyx-api-64ddf46d7d-8g9q4",
+   "mensagem": "Container started",
+   "contagem": 2,
+   "ultimaOcorrencia": "2026-11-19T12:54:25.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/nyx-postgres-7ffbcfbbcb-xp47z",
+   "mensagem": "Container started",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:54:03.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-postgres-7ffbcfbbcb-xp47z",
+   "mensagem": "Container image \"postgres:16-alpine\" already present on machine and can be accessed by the pod",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:54:02.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/nyx-postgres-7ffbcfbbcb-xp47z",
+   "mensagem": "Container created",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:54:02.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/nyx-api-64ddf46d7d-8g9q4",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:46.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/nyx-api-64ddf46d7d-c9m49",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:46.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/nyx-postgres-7ffbcfbbcb-xp47z",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:46.000Z"
+  }
+ ],
+ "erros": []
+}

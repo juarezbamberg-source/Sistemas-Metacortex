@@ -2,21 +2,27 @@
  "namespace": "nyx-prod",
  "pods": [
   {
-   "nome": "nyx-api-78587b9b89-8t5hh",
-   "estado": "Running (não-ready)",
-   "reinicios": 371,
-   "motivo": "última saída: OOMKilled (exit 137)"
+   "nome": "nyx-api-78587b9b89-pnv9m",
+   "estado": "CrashLoopBackOff",
+   "reinicios": 382,
+   "motivo": " última saída: OOMKilled (exit 137)"
   },
   {
-   "nome": "nyx-api-78587b9b89-pnv9m",
+   "nome": "nyx-api-7b5d464dcb-5ft69",
    "estado": "Running (não-ready)",
-   "reinicios": 349,
-   "motivo": "última saída: OOMKilled (exit 137)"
+   "reinicios": 9,
+   "motivo": " última saída: OOMKilled (exit 137)"
+  },
+  {
+   "nome": "nyx-api-7b5d464dcb-tfczw",
+   "estado": "Running (não-ready)",
+   "reinicios": 9,
+   "motivo": " última saída: OOMKilled (exit 137)"
   },
   {
    "nome": "nyx-postgres-7ffbcfbbcb-lzj8g",
    "estado": "Running",
-   "reinicios": 3,
+   "reinicios": 4,
    "motivo": null
   }
  ],
@@ -52,58 +58,114 @@
   {
    "tipo": "Warning",
    "motivo": "BackOff",
+   "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
+   "mensagem": "Back-off restarting failed container api in pod nyx-api-78587b9b89-pnv9m_nyx-prod(2c39fc8f-9129-4057-8183-64dce01b1728)",
+   "contagem": 27,
+   "ultimaOcorrencia": "2026-11-19T13:22:11.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "BackOff",
+   "objeto": "Pod/nyx-api-7b5d464dcb-5ft69",
+   "mensagem": "Back-off restarting failed container api in pod nyx-api-7b5d464dcb-5ft69_nyx-prod(5fb2dc8f-a02d-440d-a72a-fc1395e4d38a)",
+   "contagem": 22,
+   "ultimaOcorrencia": "2026-11-19T13:21:19.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "BackOff",
+   "objeto": "Pod/nyx-api-7b5d464dcb-tfczw",
+   "mensagem": "Back-off restarting failed container api in pod nyx-api-7b5d464dcb-tfczw_nyx-prod(600f2615-85b7-422b-9ef2-4493c7b35d58)",
+   "contagem": 25,
+   "ultimaOcorrencia": "2026-11-19T13:20:44.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "BackOff",
    "objeto": "Pod/nyx-api-78587b9b89-8t5hh",
-   "mensagem": "Back-off restarting failed container api in pod nyx-api-78587b9b89-8t5hh_nyx-prod",
-   "contagem": 74,
-   "ultimaOcorrencia": "2026-11-18T18:27:31.000Z"
+   "mensagem": "Back-off restarting failed container api in pod nyx-api-78587b9b89-8t5hh_nyx-prod(3da601ca-15fd-4ff2-9e0a-61b96600ac54)",
+   "contagem": 8,
+   "ultimaOcorrencia": "2026-11-19T13:00:02.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Unhealthy",
+   "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
+   "mensagem": "Readiness probe failed: Get \"http://10.244.0.8:8080/ready\": dial tcp 10.244.0.8:8080: connect: connection refused",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:54:15.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "BackOff",
+   "objeto": "Pod/nyx-api-78587b9b89-8t5hh",
+   "mensagem": "Back-off restarting failed container api in pod nyx-api-78587b9b89-8t5hh_nyx-prod(3da601ca-15fd-4ff2-9e0a-61b96600ac54)",
+   "contagem": 178,
+   "ultimaOcorrencia": "2026-11-19T12:12:49.000Z"
   },
   {
    "tipo": "Warning",
    "motivo": "BackOff",
    "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
-   "mensagem": "Back-off restarting failed container api in pod nyx-api-78587b9b89-pnv9m_nyx-prod",
-   "contagem": 72,
-   "ultimaOcorrencia": "2026-11-18T18:27:24.000Z"
+   "mensagem": "Back-off restarting failed container api in pod nyx-api-78587b9b89-pnv9m_nyx-prod(2c39fc8f-9129-4057-8183-64dce01b1728)",
+   "contagem": 171,
+   "ultimaOcorrencia": "2026-11-19T12:08:10.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Unhealthy",
+   "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
+   "mensagem": "Readiness probe failed: Get \"http://10.244.0.12:8080/ready\": dial tcp 10.244.0.12:8080: connect: connection refused",
+   "contagem": 4,
+   "ultimaOcorrencia": "2026-11-19T11:26:56.000Z"
   },
   {
    "tipo": "Normal",
    "motivo": "Pulled",
-   "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
-   "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
-   "contagem": 21,
-   "ultimaOcorrencia": "2026-11-18T18:27:31.000Z"
-  },
-  {
-   "tipo": "Normal",
-   "motivo": "Pulled",
-   "objeto": "Pod/nyx-api-78587b9b89-8t5hh",
-   "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
-   "contagem": 21,
-   "ultimaOcorrencia": "2026-11-18T18:27:27.000Z"
+   "objeto": "Pod/nyx-api-7b5d464dcb-5ft69",
+   "mensagem": "Container image \"polinux/stress\" already present on machine and can be accessed by the pod",
+   "contagem": 10,
+   "ultimaOcorrencia": "2026-11-19T13:21:18.000Z"
   },
   {
    "tipo": "Normal",
    "motivo": "Created",
-   "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
-   "mensagem": "Container created",
-   "contagem": 13,
-   "ultimaOcorrencia": "2026-11-18T17:45:50.000Z"
-  },
-  {
-   "tipo": "Normal",
-   "motivo": "Created",
-   "objeto": "Pod/nyx-api-78587b9b89-8t5hh",
+   "objeto": "Pod/nyx-api-7b5d464dcb-5ft69",
    "mensagem": "Container created",
    "contagem": 10,
-   "ultimaOcorrencia": "2026-11-18T17:23:26.000Z"
+   "ultimaOcorrencia": "2026-11-19T13:21:18.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
+   "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
+   "contagem": 10,
+   "ultimaOcorrencia": "2026-11-19T13:21:03.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
+   "mensagem": "Container created",
+   "contagem": 10,
+   "ultimaOcorrencia": "2026-11-19T13:21:03.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-api-7b5d464dcb-tfczw",
+   "mensagem": "Container image \"polinux/stress\" already present on machine and can be accessed by the pod",
+   "contagem": 9,
+   "ultimaOcorrencia": "2026-11-19T13:20:43.000Z"
   },
   {
    "tipo": "Normal",
    "motivo": "Started",
-   "objeto": "Pod/nyx-api-78587b9b89-8t5hh",
+   "objeto": "Pod/nyx-api-7b5d464dcb-5ft69",
    "mensagem": "Container started",
    "contagem": 9,
-   "ultimaOcorrencia": "2026-11-18T17:18:23.000Z"
+   "ultimaOcorrencia": "2026-11-19T13:16:14.000Z"
   },
   {
    "tipo": "Normal",
@@ -111,7 +173,191 @@
    "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
    "mensagem": "Container started",
    "contagem": 9,
-   "ultimaOcorrencia": "2026-11-18T17:18:20.000Z"
+   "ultimaOcorrencia": "2026-11-19T13:15:57.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/nyx-api-7b5d464dcb-tfczw",
+   "mensagem": "Container created",
+   "contagem": 9,
+   "ultimaOcorrencia": "2026-11-19T13:15:42.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/nyx-api-7b5d464dcb-tfczw",
+   "mensagem": "Container started",
+   "contagem": 9,
+   "ultimaOcorrencia": "2026-11-19T13:15:42.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SuccessfulDelete",
+   "objeto": "ReplicaSet/nyx-api-78587b9b89",
+   "mensagem": "Deleted pod: nyx-api-78587b9b89-8t5hh",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:00:10.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SuccessfulCreate",
+   "objeto": "ReplicaSet/nyx-api-7b5d464dcb",
+   "mensagem": "Created pod: nyx-api-7b5d464dcb-5ft69",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:00:10.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "ScalingReplicaSet",
+   "objeto": "Deployment/nyx-api",
+   "mensagem": "Scaled down replica set nyx-api-78587b9b89 from 2 to 1",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:00:10.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "ScalingReplicaSet",
+   "objeto": "Deployment/nyx-api",
+   "mensagem": "Scaled up replica set nyx-api-7b5d464dcb from 1 to 2",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:00:10.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-api-78587b9b89-8t5hh",
+   "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
+   "contagem": 6,
+   "ultimaOcorrencia": "2026-11-19T12:59:59.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/nyx-api-78587b9b89-8t5hh",
+   "mensagem": "Container created",
+   "contagem": 6,
+   "ultimaOcorrencia": "2026-11-19T12:59:59.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/nyx-api-78587b9b89-8t5hh",
+   "mensagem": "Container started",
+   "contagem": 6,
+   "ultimaOcorrencia": "2026-11-19T12:59:59.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-api-7b5d464dcb-tfczw",
+   "mensagem": "Successfully pulled image \"polinux/stress\" in 4.352s (4.352s including waiting). Image size: 4041495 bytes.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:59:57.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulling",
+   "objeto": "Pod/nyx-api-7b5d464dcb-tfczw",
+   "mensagem": "Pulling image \"polinux/stress\"",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:59:53.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SuccessfulCreate",
+   "objeto": "ReplicaSet/nyx-api-7b5d464dcb",
+   "mensagem": "Created pod: nyx-api-7b5d464dcb-tfczw",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:59:52.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "ScalingReplicaSet",
+   "objeto": "Deployment/nyx-api",
+   "mensagem": "Scaled up replica set nyx-api-7b5d464dcb from 0 to 1",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:59:52.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/nyx-postgres-7ffbcfbbcb-lzj8g",
+   "mensagem": "Container started",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:54:02.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-postgres-7ffbcfbbcb-lzj8g",
+   "mensagem": "Container image \"postgres:16-alpine\" already present on machine and can be accessed by the pod",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:58.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/nyx-postgres-7ffbcfbbcb-lzj8g",
+   "mensagem": "Container created",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:58.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/nyx-api-78587b9b89-8t5hh",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:46.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:45.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/nyx-postgres-7ffbcfbbcb-lzj8g",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:45.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-api-78587b9b89-8t5hh",
+   "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
+   "contagem": 44,
+   "ultimaOcorrencia": "2026-11-19T12:08:47.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-api-78587b9b89-pnv9m",
+   "mensagem": "Container image \"fabricioveronez/kube-news:v1\" already present on machine and can be accessed by the pod",
+   "contagem": 44,
+   "ultimaOcorrencia": "2026-11-19T12:08:07.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Scheduled",
+   "objeto": "Pod/nyx-api-7b5d464dcb-5ft69",
+   "mensagem": "Successfully assigned nyx-prod/nyx-api-7b5d464dcb-5ft69 to metacortex-control-plane",
+   "contagem": 1,
+   "ultimaOcorrencia": null
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Scheduled",
+   "objeto": "Pod/nyx-api-7b5d464dcb-tfczw",
+   "mensagem": "Successfully assigned nyx-prod/nyx-api-7b5d464dcb-tfczw to metacortex-control-plane",
+   "contagem": 1,
+   "ultimaOcorrencia": null
   }
  ],
  "erros": []

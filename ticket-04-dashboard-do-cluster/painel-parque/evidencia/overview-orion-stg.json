@@ -1,0 +1,398 @@
+{
+ "namespace": "orion-stg",
+ "pods": [
+  {
+   "nome": "orion-postgres-67b9654ccf-dnstx",
+   "estado": "Running",
+   "reinicios": 4,
+   "motivo": null
+  },
+  {
+   "nome": "orion-web-5d4f6574bd-xh9fc",
+   "estado": "ImagePullBackOff",
+   "reinicios": 0,
+   "motivo": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\": ErrImagePull: rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": docker.io/fabricioveronez/fake-shop:v1.14.2: not found"
+  },
+  {
+   "nome": "orion-web-66cd974dbc-h2z8t",
+   "estado": "ImagePullBackOff",
+   "reinicios": 0,
+   "motivo": "Back-off pulling image \"nginx:1.14.2-tag-que-nao-existe\": ErrImagePull: rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/library/nginx:1.14.2-tag-que-nao-existe\": failed to resolve reference \"docker.io/library/nginx:1.14.2-tag-que-nao-existe\": docker.io/library/nginx:1.14.2-tag-que-nao-existe: not found"
+  }
+ ],
+ "deployments": [
+  {
+   "nome": "orion-postgres",
+   "desejadas": 1,
+   "prontas": 1
+  },
+  {
+   "nome": "orion-web",
+   "desejadas": 1,
+   "prontas": 0
+  }
+ ],
+ "services": [
+  {
+   "nome": "orion-postgres",
+   "temEndpoint": true,
+   "portas": [
+    5432
+   ]
+  },
+  {
+   "nome": "orion-web",
+   "temEndpoint": true,
+   "portas": [
+    80
+   ]
+  }
+ ],
+ "eventos": [
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-xh9fc",
+   "mensagem": "Failed to pull image \"fabricioveronez/fake-shop:v1.14.2\": failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to authorize: failed to fetch anonymous token: Get \"https://auth.docker.io/token?scope=repository%3Afabricioveronez%2Ffake-shop%3Apull&service=registry.docker.io\": EOF",
+   "contagem": 30,
+   "ultimaOcorrencia": "2026-11-18T19:56:35.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-66cd974dbc-h2z8t",
+   "mensagem": "Error: ImagePullBackOff",
+   "contagem": 84,
+   "ultimaOcorrencia": "2026-11-19T13:20:08.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-xh9fc",
+   "mensagem": "Error: ImagePullBackOff",
+   "contagem": 111,
+   "ultimaOcorrencia": "2026-11-19T13:19:14.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-66cd974dbc-h2z8t",
+   "mensagem": "Failed to pull image \"nginx:1.14.2-tag-que-nao-existe\": rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/library/nginx:1.14.2-tag-que-nao-existe\": failed to resolve reference \"docker.io/library/nginx:1.14.2-tag-que-nao-existe\": docker.io/library/nginx:1.14.2-tag-que-nao-existe: not found",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T13:02:49.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-66cd974dbc-h2z8t",
+   "mensagem": "Error: ErrImagePull",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T13:02:49.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-qr6l6",
+   "mensagem": "Error: ImagePullBackOff",
+   "contagem": 21,
+   "ultimaOcorrencia": "2026-11-19T12:59:07.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-wzjbj",
+   "mensagem": "Error: ImagePullBackOff",
+   "contagem": 21,
+   "ultimaOcorrencia": "2026-11-19T12:59:03.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-wzjbj",
+   "mensagem": "Failed to pull image \"fabricioveronez/fake-shop:v1.14.2\": rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": docker.io/fabricioveronez/fake-shop:v1.14.2: not found",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T12:57:00.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-wzjbj",
+   "mensagem": "Error: ErrImagePull",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T12:57:00.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-xh9fc",
+   "mensagem": "Failed to pull image \"fabricioveronez/fake-shop:v1.14.2\": rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": docker.io/fabricioveronez/fake-shop:v1.14.2: not found",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T12:56:59.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-xh9fc",
+   "mensagem": "Error: ErrImagePull",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T12:56:59.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-qr6l6",
+   "mensagem": "Failed to pull image \"fabricioveronez/fake-shop:v1.14.2\": rpc error: code = NotFound desc = failed to pull and unpack image \"docker.io/fabricioveronez/fake-shop:v1.14.2\": failed to resolve reference \"docker.io/fabricioveronez/fake-shop:v1.14.2\": docker.io/fabricioveronez/fake-shop:v1.14.2: not found",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T12:56:57.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-qr6l6",
+   "mensagem": "Error: ErrImagePull",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T12:56:57.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-qr6l6",
+   "mensagem": "Error: ImagePullBackOff",
+   "contagem": 885,
+   "ultimaOcorrencia": "2026-11-19T12:12:00.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-wzjbj",
+   "mensagem": "Error: ImagePullBackOff",
+   "contagem": 879,
+   "ultimaOcorrencia": "2026-11-19T12:11:55.000Z"
+  },
+  {
+   "tipo": "Warning",
+   "motivo": "Failed",
+   "objeto": "Pod/orion-web-5d4f6574bd-xh9fc",
+   "mensagem": "Error: ImagePullBackOff",
+   "contagem": 878,
+   "ultimaOcorrencia": "2026-11-19T12:11:51.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulling",
+   "objeto": "Pod/orion-web-5d4f6574bd-xh9fc",
+   "mensagem": "Pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 35,
+   "ultimaOcorrencia": "2026-11-18T19:40:59.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "BackOff",
+   "objeto": "Pod/orion-web-66cd974dbc-h2z8t",
+   "mensagem": "Back-off pulling image \"nginx:1.14.2-tag-que-nao-existe\"",
+   "contagem": 84,
+   "ultimaOcorrencia": "2026-11-19T13:20:08.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "BackOff",
+   "objeto": "Pod/orion-web-5d4f6574bd-xh9fc",
+   "mensagem": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 110,
+   "ultimaOcorrencia": "2026-11-19T13:19:00.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulling",
+   "objeto": "Pod/orion-web-66cd974dbc-h2z8t",
+   "mensagem": "Pulling image \"nginx:1.14.2-tag-que-nao-existe\"",
+   "contagem": 6,
+   "ultimaOcorrencia": "2026-11-19T13:05:36.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SuccessfulCreate",
+   "objeto": "ReplicaSet/orion-web-66cd974dbc",
+   "mensagem": "Created pod: orion-web-66cd974dbc-h2z8t",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:59:53.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SuccessfulDelete",
+   "objeto": "ReplicaSet/orion-web-5d4f6574bd",
+   "mensagem": "Deleted pod: orion-web-5d4f6574bd-wzjbj",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:59:52.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SuccessfulDelete",
+   "objeto": "ReplicaSet/orion-web-5d4f6574bd",
+   "mensagem": "Deleted pod: orion-web-5d4f6574bd-qr6l6",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:59:52.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "ScalingReplicaSet",
+   "objeto": "Deployment/orion-web",
+   "mensagem": "Scaled down replica set orion-web-5d4f6574bd from 3 to 1",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:59:52.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "ScalingReplicaSet",
+   "objeto": "Deployment/orion-web",
+   "mensagem": "Scaled up replica set orion-web-66cd974dbc from 0 to 1",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:59:52.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "BackOff",
+   "objeto": "Pod/orion-web-5d4f6574bd-qr6l6",
+   "mensagem": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 20,
+   "ultimaOcorrencia": "2026-11-19T12:58:55.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "BackOff",
+   "objeto": "Pod/orion-web-5d4f6574bd-wzjbj",
+   "mensagem": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 20,
+   "ultimaOcorrencia": "2026-11-19T12:58:48.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulling",
+   "objeto": "Pod/orion-web-5d4f6574bd-wzjbj",
+   "mensagem": "Pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T12:56:59.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulling",
+   "objeto": "Pod/orion-web-5d4f6574bd-xh9fc",
+   "mensagem": "Pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T12:56:58.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulling",
+   "objeto": "Pod/orion-web-5d4f6574bd-qr6l6",
+   "mensagem": "Pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 5,
+   "ultimaOcorrencia": "2026-11-19T12:56:56.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/orion-postgres-67b9654ccf-dnstx",
+   "mensagem": "Container started",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:54:02.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/orion-postgres-67b9654ccf-dnstx",
+   "mensagem": "Container created",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:58.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/orion-postgres-67b9654ccf-dnstx",
+   "mensagem": "Container image \"postgres:16-alpine\" already present on machine and can be accessed by the pod",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:57.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/orion-web-5d4f6574bd-qr6l6",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:46.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/orion-web-5d4f6574bd-xh9fc",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:46.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/orion-postgres-67b9654ccf-dnstx",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:45.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SandboxChanged",
+   "objeto": "Pod/orion-web-5d4f6574bd-wzjbj",
+   "mensagem": "Pod sandbox changed, it will be killed and re-created.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T12:53:45.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "BackOff",
+   "objeto": "Pod/orion-web-5d4f6574bd-xh9fc",
+   "mensagem": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 876,
+   "ultimaOcorrencia": "2026-11-19T12:11:25.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "BackOff",
+   "objeto": "Pod/orion-web-5d4f6574bd-qr6l6",
+   "mensagem": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 883,
+   "ultimaOcorrencia": "2026-11-19T12:11:20.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "BackOff",
+   "objeto": "Pod/orion-web-5d4f6574bd-wzjbj",
+   "mensagem": "Back-off pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 877,
+   "ultimaOcorrencia": "2026-11-19T12:11:16.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulling",
+   "objeto": "Pod/orion-web-5d4f6574bd-wzjbj",
+   "mensagem": "Pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 43,
+   "ultimaOcorrencia": "2026-11-19T12:06:25.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulling",
+   "objeto": "Pod/orion-web-5d4f6574bd-qr6l6",
+   "mensagem": "Pulling image \"fabricioveronez/fake-shop:v1.14.2\"",
+   "contagem": 40,
+   "ultimaOcorrencia": "2026-11-19T11:31:11.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Scheduled",
+   "objeto": "Pod/orion-web-66cd974dbc-h2z8t",
+   "mensagem": "Successfully assigned orion-stg/orion-web-66cd974dbc-h2z8t to metacortex-control-plane",
+   "contagem": 1,
+   "ultimaOcorrencia": null
+  }
+ ],
+ "erros": []
+}

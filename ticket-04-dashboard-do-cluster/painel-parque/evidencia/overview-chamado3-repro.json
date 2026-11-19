@@ -1,0 +1,140 @@
+{
+ "namespace": "chamado3-repro",
+ "pods": [
+  {
+   "nome": "nyx-api-6dbc4c4b8c-7vx6g",
+   "estado": "Running",
+   "reinicios": 0,
+   "motivo": null
+  },
+  {
+   "nome": "nyx-api-6dbc4c4b8c-v6nkw",
+   "estado": "Running",
+   "reinicios": 0,
+   "motivo": null
+  }
+ ],
+ "deployments": [
+  {
+   "nome": "nyx-api",
+   "desejadas": 2,
+   "prontas": 2
+  }
+ ],
+ "services": [
+  {
+   "nome": "nyx-api",
+   "temEndpoint": false,
+   "portas": [
+    80
+   ]
+  }
+ ],
+ "eventos": [
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-api-6dbc4c4b8c-v6nkw",
+   "mensagem": "Successfully pulled image \"nginx:1.27-alpine\" in 1.092s (48.373s including waiting). Image size: 20984244 bytes.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:57.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/nyx-api-6dbc4c4b8c-v6nkw",
+   "mensagem": "Container created",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:57.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/nyx-api-6dbc4c4b8c-v6nkw",
+   "mensagem": "Container started",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:57.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Started",
+   "objeto": "Pod/nyx-api-6dbc4c4b8c-7vx6g",
+   "mensagem": "Container started",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:56.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulled",
+   "objeto": "Pod/nyx-api-6dbc4c4b8c-7vx6g",
+   "mensagem": "Successfully pulled image \"nginx:1.27-alpine\" in 47.292s (47.292s including waiting). Image size: 20984244 bytes.",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:55.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Created",
+   "objeto": "Pod/nyx-api-6dbc4c4b8c-7vx6g",
+   "mensagem": "Container created",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:55.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulling",
+   "objeto": "Pod/nyx-api-6dbc4c4b8c-7vx6g",
+   "mensagem": "Pulling image \"nginx:1.27-alpine\"",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:08.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Pulling",
+   "objeto": "Pod/nyx-api-6dbc4c4b8c-v6nkw",
+   "mensagem": "Pulling image \"nginx:1.27-alpine\"",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:08.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SuccessfulCreate",
+   "objeto": "ReplicaSet/nyx-api-6dbc4c4b8c",
+   "mensagem": "Created pod: nyx-api-6dbc4c4b8c-7vx6g",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:07.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "SuccessfulCreate",
+   "objeto": "ReplicaSet/nyx-api-6dbc4c4b8c",
+   "mensagem": "Created pod: nyx-api-6dbc4c4b8c-v6nkw",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:07.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "ScalingReplicaSet",
+   "objeto": "Deployment/nyx-api",
+   "mensagem": "Scaled up replica set nyx-api-6dbc4c4b8c from 0 to 2",
+   "contagem": 1,
+   "ultimaOcorrencia": "2026-11-19T13:18:07.000Z"
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Scheduled",
+   "objeto": "Pod/nyx-api-6dbc4c4b8c-7vx6g",
+   "mensagem": "Successfully assigned chamado3-repro/nyx-api-6dbc4c4b8c-7vx6g to metacortex-control-plane",
+   "contagem": 1,
+   "ultimaOcorrencia": null
+  },
+  {
+   "tipo": "Normal",
+   "motivo": "Scheduled",
+   "objeto": "Pod/nyx-api-6dbc4c4b8c-v6nkw",
+   "mensagem": "Successfully assigned chamado3-repro/nyx-api-6dbc4c4b8c-v6nkw to metacortex-control-plane",
+   "contagem": 1,
+   "ultimaOcorrencia": null
+  }
+ ],
+ "erros": []
+}
