@@ -1,31 +1,30 @@
-# Inventário de VMs — metavm
+# Inventário de picoclaw-03ec9e20-7cc6b88f9-vwh7h (127.0.0.11)
+Coletado em 2026-11-18T18:35:16Z · baseline Metacortex v1 (11 regras)
 
-**3 hosts · 7 conforme(is) · 0 desvio(s) · 6 não verificado(s)**
+## Desvios
 
-## web-01
+| Severidade | Regra | Esperado | Encontrado |
+|---|---|---|---|
+| alto | so.distribuicao | ubuntu | alpine |
+| alto | servicos.ativos | ['ssh', 'containerd', 'node_exporter', 'chrony'] | [] |
+| critico | chaves_ssh.emitidas_por | metacortex-platform | ['ethos@picoclaw-03ec9e20-7cc6b88f9-vwh7h'] |
 
-| check | veredito | severidade | esperado | observado | motivo |
-|---|---|---|---|---|---|
-| ✅ sysctl-ip-forward | conforme | warning |  | 1 |  |
-| ❔ banner-metacortex | nao_verificado | info |  |  | comando falhou (rc=1): cat: can't open '/etc/issue.net': No such file or directory |
-| ✅ home-perms | conforme | critical |  | existe |  |
-| ❔ usuario-app | nao_verificado | warning |  |  | comando falhou (rc=1): id: unknown user www-data |
+## Não verificado
 
-## web-02
+| Regra | Motivo |
+|---|---|
+| so.versao_minima | dado não coletado |
+| swap.habilitado | swapon não retornou dados neste host |
+| portas_em_escuta.publicas_permitidas | ss/netstat não retornaram dados |
+| ssh.login_de_root | exige privilégio que o usuário da coleta não tem |
+| ntp.sincronizado | dado não coletado |
 
-| check | veredito | severidade | esperado | observado | motivo |
-|---|---|---|---|---|---|
-| ✅ sysctl-ip-forward | conforme | warning |  | 1 |  |
-| ❔ banner-metacortex | nao_verificado | info |  |  | comando falhou (rc=1): cat: can't open '/etc/issue.net': No such file or directory |
-| ✅ home-perms | conforme | critical |  | existe |  |
-| ❔ usuario-app | nao_verificado | warning |  |  | comando falhou (rc=1): id: unknown user www-data |
+## Conforme
 
-## db-01
+kernel.versao_minima · servicos.proibidos · portas_em_escuta.somente_rede_interna
 
-| check | veredito | severidade | esperado | observado | motivo |
-|---|---|---|---|---|---|
-| ✅ sysctl-ip-forward | conforme | warning |  | 1 |  |
-| ❔ banner-metacortex | nao_verificado | info |  |  | comando falhou (rc=1): cat: can't open '/etc/issue.net': No such file or directory |
-| ✅ home-perms | conforme | critical |  | existe |  |
-| ❔ postgres-usuario | nao_verificado | critical |  |  | comando falhou (rc=1): id: unknown user postgres |
-| ✅ sysctl-swappiness | conforme | warning |  | 200 |  |
+**Resumo: 3 conforme · 3 desvio · 5 não verificado**
+
+---
+Execução real (2026-11-18, vaia 2). Exit code **1** (há desvios e não-verificados).
+Host: parque dropbear do laboratório (alpine, kernel 6.12 — daí o desvio de distribuição).
