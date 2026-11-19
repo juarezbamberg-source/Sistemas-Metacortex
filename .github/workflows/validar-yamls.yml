@@ -6,6 +6,7 @@ on:
       - "**.yml"
       - "**.py"
       - "**.js"
+      - "**.json"
       - ".github/workflows/**"
   push:
     branches: [main]
@@ -14,6 +15,7 @@ on:
       - "**.yml"
       - "**.py"
       - "**.js"
+      - "**.json"
       - ".github/workflows/**"
 permissions:
   contents: read
