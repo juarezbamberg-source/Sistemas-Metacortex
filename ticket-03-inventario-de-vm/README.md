@@ -8,10 +8,10 @@ CLI **somente leitura** que conecta por SSH, coleta fatos das VMs, compara com a
 |---|---|
 | Especificação (arco OpenSpec) | [`spec/PRD.md`](spec/PRD.md) · [`spec/TRD-ADRs.md`](spec/TRD-ADRs.md) (4 ADRs) |
 | **Ciclo OpenSpec versionado** (proposta, tarefas, specs, arquivamento) | [`openspec/changes/auditoria-vm-ssh/openspec.md`](openspec/changes/auditoria-vm-ssh/openspec.md) |
-| **Laudo no contrato do enunciado** (host/inventario/conformidade/resumo, 11 regras) | [`evidencia/laudo.json`](evidencia/laudo.json) · [`evidencia/laudo.md`](evidencia/laudo.md) |
+| **Laudo no contrato do enunciado** (host/inventario/conformidade/resumo, 11 regras) | [`evidencia/exec1/laudo.json`](evidencia/exec1/laudo.json) · [`evidencia/exec1/laudo.md`](evidencia/exec1/laudo.md) — 1ª execução; a 2ª (idempotente) está em [`evidencia/exec2/`](evidencia/exec2/) |
 | Ferramenta | [`metavm.py`](metavm.py) (módulo único: modelo, baseline com herança `extends`, coleta, comparação, relatórios, CLI) |
 | Baseline e inventário de exemplo | [`exemplos/baseline.yaml`](exemplos/baseline.yaml) · [`exemplos/inventario.yaml`](exemplos/inventario.yaml) |
-| Relatórios reais do parque | [`exemplos/saida/laudo.md`](exemplos/saida/laudo.md) · [`exemplos/saida/laudo.json`](exemplos/saida/laudo.json) |
+| Evidência completa (exit codes, host morto, idempotência) | [`evidencia/README.md`](evidencia/README.md) |
 
 ## Parque de execução (sandbox, sem OpenSSH/sudo)
 
